@@ -2,8 +2,9 @@
 -- This script contains INSERT statements for populating tables with seed data
 -- *****************************************************************************
 
-BEGIN;
+USE [TransportationDB] 
 
--- INSERT statements go here
-
-COMMIT;
+INSERT INTO LOOKUPRole (RoleName,RoleDescription,RowCreatedSYSUserID,RowModifiedSYSUserID)  
+       VALUES ('Admin','Can Create, Edit, Update, Delete',1,1);
+INSERT INTO LOOKUPRole (RoleName,RoleDescription,RowCreatedSYSUserID,RowModifiedSYSUserID)  
+       VALUES ('Member','Read only',1,1);

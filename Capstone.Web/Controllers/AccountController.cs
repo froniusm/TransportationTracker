@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Security.Cryptography;
 using Capstone.Web.Models.ViewModel;
 using Capstone.Web.Models.EntityManager;
 
@@ -17,6 +18,7 @@ namespace Capstone.Web.Controllers
 
         [HttpPost]
         public ActionResult SignUp(RegistrationModel USV) {
+
             if (ModelState.IsValid) {
                 UserManager UM = new UserManager();
                 if (!UM.IsLoginNameExist(USV.LoginName)) {
@@ -66,5 +68,6 @@ namespace Capstone.Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
     }
 }

@@ -32,7 +32,5 @@ namespace Capstone.Web.Models.DB
         public virtual DbSet<SYSUserProfile> SYSUserProfiles { get; set; }
         public virtual DbSet<SYSUserRole> SYSUserRoles { get; set; }
         public virtual DbSet<Waypoint> Waypoints { get; set; }
-
-        public System.Data.Entity.DbSet<Capstone.Web.Models.ViewModel.UserLoginView> UserLoginViews { get; set; }
     }
 }

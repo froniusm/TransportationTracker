@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[SYSUser](
     [RowCreatedSYSUserID] [int] NOT NULL,
     [RowCreatedDateTime] [datetime] DEFAULT GETDATE(),
     [RowModifiedSYSUserID] [int] NOT NULL,
-    [RowMOdifiedDateTime] [datetime] DEFAULT GETDATE(),
+    [RowModifiedDateTime] [datetime] DEFAULT GETDATE(),
     PRIMARY KEY (SYSUserID)
 )
 
@@ -120,3 +120,13 @@ REFERENCES [dbo].[Routes] ([RouteID])
 
 ALTER TABLE [dbo].[SYSUser]
 ADD [Salt] [varchar](8) NULL;
+
+DROP TABLE [dbo].[SYSUser] 
+DROP TABLE [dbo].[UserRoutes]
+DROP TABLE [dbo].[WaypointsSchedule]
+DROP TABLE [dbo].[Schedules]
+DROP TABLE [dbo].[Waypoints]
+DROP TABLE [dbo].[Routes]
+DROP TABLE [dbo].[LOOKUPRole]
+DROP TABLE [dbo].[SYSUserProfile]
+DROP TABLE [dbo].[SYSUserRole]

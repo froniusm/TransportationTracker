@@ -20,6 +20,7 @@ CREATE TABLE [dbo].[SYSUser](
     [SYSUserID] [int] IDENTITY(1,1) NOT NULL,
     [LoginName] [varchar](50) NOT NULL,
     [PasswordEncryptedText] [varchar](200) NOT NULL,
+	[Salt] [varchar](8) NULL,
     [RowCreatedSYSUserID] [int] NOT NULL,
     [RowCreatedDateTime] [datetime] DEFAULT GETDATE(),
     [RowModifiedSYSUserID] [int] NOT NULL,
@@ -118,8 +119,6 @@ REFERENCES [dbo].[SYSUser] ([SYSUserID])
 ALTER TABLE [dbo].[UserRoutes] WITH CHECK ADD FOREIGN KEY ([RouteID])
 REFERENCES [dbo].[Routes] ([RouteID])
 
-ALTER TABLE [dbo].[SYSUser]
-ADD [Salt] [varchar](8) NULL;
 
 DROP TABLE [dbo].[SYSUser] 
 DROP TABLE [dbo].[UserRoutes]

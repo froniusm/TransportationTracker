@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TransportationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TransportationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="LOOKUPRole">
           <Key>
             <PropertyRef Name="LOOKUPRoleID" />
@@ -45,6 +45,7 @@
           <Property Name="RowCreatedDateTime" Type="datetime" />
           <Property Name="RowModifiedSYSUserID" Type="int" Nullable="false" />
           <Property Name="RowMOdifiedDateTime" Type="datetime" />
+          <Property Name="Salt" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="SYSUserProfile">
           <Key>
@@ -111,7 +112,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SYSUserPr__SYSUs__3D5E1FD2">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
+          <End Role="SYSUserProfile" Type="Self.SYSUserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="SYSUserProfile">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SYSUserRo__LOOKU__21B6055D">
+          <End Role="LOOKUPRole" Type="Self.LOOKUPRole" Multiplicity="1" />
+          <End Role="SYSUserRole" Type="Self.SYSUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOOKUPRole">
+              <PropertyRef Name="LOOKUPRoleID" />
+            </Principal>
+            <Dependent Role="SYSUserRole">
+              <PropertyRef Name="LOOKUPRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYSUserRo__LOOKU__3E52440B">
           <End Role="LOOKUPRole" Type="Self.LOOKUPRole" Multiplicity="1" />
           <End Role="SYSUserRole" Type="Self.SYSUserRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -135,7 +160,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SYSUserRo__SYSUs__3F466844">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
+          <End Role="SYSUserRole" Type="Self.SYSUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="SYSUserRole">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserRoute__Route__30F848ED">
+          <End Role="Routes" Type="Self.Routes" Multiplicity="1" />
+          <End Role="UserRoutes" Type="Self.UserRoutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Routes">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="UserRoutes">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoute__Route__4222D4EF">
           <End Role="Routes" Type="Self.Routes" Multiplicity="1" />
           <End Role="UserRoutes" Type="Self.UserRoutes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -159,7 +208,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__UserRoute__SYSUs__412EB0B6">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
+          <End Role="UserRoutes" Type="Self.UserRoutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="UserRoutes">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Waypoints__Route__276EDEB3">
+          <End Role="Routes" Type="Self.Routes" Multiplicity="1" />
+          <End Role="Waypoints" Type="Self.Waypoints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Routes">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="Waypoints">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Waypoints__Route__403A8C7D">
           <End Role="Routes" Type="Self.Routes" Multiplicity="1" />
           <End Role="Waypoints" Type="Self.Waypoints" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,7 +282,15 @@
             <End Role="SYSUser" EntitySet="SYSUser" />
             <End Role="SYSUserProfile" EntitySet="SYSUserProfile" />
           </AssociationSet>
+          <AssociationSet Name="FK__SYSUserPr__SYSUs__3D5E1FD2" Association="Self.FK__SYSUserPr__SYSUs__3D5E1FD2">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="SYSUserProfile" EntitySet="SYSUserProfile" />
+          </AssociationSet>
           <AssociationSet Name="FK__SYSUserRo__LOOKU__21B6055D" Association="Self.FK__SYSUserRo__LOOKU__21B6055D">
+            <End Role="LOOKUPRole" EntitySet="LOOKUPRole" />
+            <End Role="SYSUserRole" EntitySet="SYSUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSUserRo__LOOKU__3E52440B" Association="Self.FK__SYSUserRo__LOOKU__3E52440B">
             <End Role="LOOKUPRole" EntitySet="LOOKUPRole" />
             <End Role="SYSUserRole" EntitySet="SYSUserRole" />
           </AssociationSet>
@@ -217,7 +298,15 @@
             <End Role="SYSUser" EntitySet="SYSUser" />
             <End Role="SYSUserRole" EntitySet="SYSUserRole" />
           </AssociationSet>
+          <AssociationSet Name="FK__SYSUserRo__SYSUs__3F466844" Association="Self.FK__SYSUserRo__SYSUs__3F466844">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="SYSUserRole" EntitySet="SYSUserRole" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserRoute__Route__30F848ED" Association="Self.FK__UserRoute__Route__30F848ED">
+            <End Role="Routes" EntitySet="Routes" />
+            <End Role="UserRoutes" EntitySet="UserRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoute__Route__4222D4EF" Association="Self.FK__UserRoute__Route__4222D4EF">
             <End Role="Routes" EntitySet="Routes" />
             <End Role="UserRoutes" EntitySet="UserRoutes" />
           </AssociationSet>
@@ -225,7 +314,15 @@
             <End Role="SYSUser" EntitySet="SYSUser" />
             <End Role="UserRoutes" EntitySet="UserRoutes" />
           </AssociationSet>
+          <AssociationSet Name="FK__UserRoute__SYSUs__412EB0B6" Association="Self.FK__UserRoute__SYSUs__412EB0B6">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="UserRoutes" EntitySet="UserRoutes" />
+          </AssociationSet>
           <AssociationSet Name="FK__Waypoints__Route__276EDEB3" Association="Self.FK__Waypoints__Route__276EDEB3">
+            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Waypoints" EntitySet="Waypoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Waypoints__Route__403A8C7D" Association="Self.FK__Waypoints__Route__403A8C7D">
             <End Role="Routes" EntitySet="Routes" />
             <End Role="Waypoints" EntitySet="Waypoints" />
           </AssociationSet>
@@ -238,8 +335,7 @@
             <End Role="WaypointsSchedule" EntitySet="WaypointsSchedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TransportationDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -290,6 +386,7 @@
           <NavigationProperty Name="SYSUserProfiles" Relationship="Self.FK__SYSUserPr__SYSUs__1BFD2C07" FromRole="SYSUser" ToRole="SYSUserProfile" />
           <NavigationProperty Name="SYSUserRoles" Relationship="Self.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUser" ToRole="SYSUserRole" />
           <NavigationProperty Name="Routes" Relationship="Self.UserRoutes" FromRole="SYSUser" ToRole="Routes" />
+          <Property Name="Salt" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SYSUserProfile">
           <Key>
@@ -463,6 +560,7 @@
           <EntitySetMapping Name="SYSUsers">
             <EntityTypeMapping TypeName="TransportationDBModel.SYSUser">
               <MappingFragment StoreEntitySet="SYSUser">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
                 <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
                 <ScalarProperty Name="LoginName" ColumnName="LoginName" />
                 <ScalarProperty Name="PasswordEncryptedText" ColumnName="PasswordEncryptedText" />

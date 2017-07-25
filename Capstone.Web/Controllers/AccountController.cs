@@ -30,5 +30,41 @@ namespace Capstone.Web.Controllers
             }
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult LogIn(UserLoginView ULV, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                UserManager UM = new UserManager();
+                string password = UM.GetUserPassword(ULV.LoginName);
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    ModelState.AddModelError("", "The user login and password combination is invalid.");
+                }
+                else
+                {
+                    if (ULV.Password.Equals(password))
+                    {
+                        FormsAuthentication.SetAuthCookie(ULV.LoginName, false);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The user login and password combination is invalid.");
+                    }
+                }
+            }
+
+            return View(ULV);
+        }
+
+        [Authorize]
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

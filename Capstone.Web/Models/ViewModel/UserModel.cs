@@ -12,6 +12,7 @@ namespace Capstone.Web.Models.ViewModel
         public int SYSUserID { get; set; }
         public int LOOKUPRoleID { get; set; }
         public string RoleName { get; set; }
+        public string Salt { get; set; }
         [Required(ErrorMessage = "*")]
         [Display(Name = "User Name")]
         public string LoginName { get; set; }
@@ -30,5 +31,19 @@ namespace Capstone.Web.Models.ViewModel
         [Required(ErrorMessage = "*")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+    }
+
+    public class UserLoginView
+    {
+        [Key]
+        public int SYSUserID { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Login ID")]
+        public string LoginName { get; set; }
+        [Required(ErrorMessage = "*")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
     }
 }

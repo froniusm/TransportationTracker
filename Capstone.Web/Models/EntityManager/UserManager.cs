@@ -60,5 +60,17 @@ namespace Capstone.Web.Models.EntityManager
             }
         }
 
+        public string GetUserPassword(string loginName)
+        {
+            using (TransportationDBEntities db = new TransportationDBEntities()) // Gets the corresponding password from the database for a login name using LINQ query
+            {
+                var user = db.SYSUsers.Where(m => m.LoginName.ToLower().Equals(loginName));
+                if (user.Any())
+                    return user.FirstOrDefault().PasswordEncryptedText;
+                else
+                    return string.Empty;
+            }
+        }
+
     }
 }

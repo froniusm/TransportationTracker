@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Linq;
 using Capstone.Web.Models.DB;
@@ -74,17 +75,26 @@ namespace Capstone.Web.Models.EntityManager
             }
         }
 
-        public string GetUserPassword(string loginName)
+        public List<string> GetUserPassword(string loginName)
         {
             using (TransportationDBEntities db = new TransportationDBEntities()) // Gets the corresponding password from the database for a login name using LINQ query
             {
                 var user = db.SYSUsers.Where(m => m.LoginName.ToLower().Equals(loginName));
+
+                List<string> hashSalt = new List<string>();
                 if (user.Any())
-                    return user.FirstOrDefault().PasswordEncryptedText;
+                {
+                    hashSalt.Add(user.FirstOrDefault().PasswordEncryptedText);
+                    hashSalt.Add(user.FirstOrDefault().Salt);
+                    return hashSalt;
+                }
                 else
-                    return string.Empty;
+                {
+                    return hashSalt;
+                }
+
+
             }
         }
-
     }
 }

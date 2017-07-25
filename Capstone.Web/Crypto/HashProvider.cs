@@ -26,7 +26,7 @@ namespace Capstone.Web.Crypto
             // Find out how entity framework pulls information from the database, because we need the hashed password and salt here
 
             byte[] saltArray = Convert.FromBase64String(salt);
-            Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(plainTextPassword, 8, WorkFactor);
+            Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(plainTextPassword, saltArray, WorkFactor);
             byte[] hash = rfc.GetBytes(20);
 
             string newHashedPassword = Convert.ToBase64String(hash);

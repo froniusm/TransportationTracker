@@ -12,17 +12,21 @@ using Capstone.Web.Crypto;
 namespace Capstone.Web.Controllers
 {
     public class AccountController : Controller
-    {      
-        public ActionResult SignUp() {
+    {
+        public ActionResult SignUp()
+        {
             return View();
         }
 
         [HttpPost]
-        public ActionResult SignUp(RegistrationModel USV) {
+        public ActionResult SignUp(RegistrationModel USV)
+        {
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 UserManager UM = new UserManager();
-                if (!UM.IsLoginNameExist(USV.LoginName)) {
+                if (!UM.IsLoginNameExist(USV.LoginName))
+                {
                     HashProvider hasher = new HashProvider();
                     string hashedPassword = hasher.HashPassword(USV.Password);
                     USV.Salt = hasher.SaltValue;
@@ -37,6 +41,10 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult LogIn(UserLoginView ULV, string returnUrl)
@@ -44,26 +52,29 @@ namespace Capstone.Web.Controllers
             if (ModelState.IsValid)
             {
                 UserManager UM = new UserManager();
-                string password = UM.GetUserPassword(ULV.LoginName);
+                List<string> hashSalt = UM.GetUserPassword(ULV.LoginName);
 
-                if (string.IsNullOrEmpty(password))
+                if (hashSalt.Count == 0)
                 {
                     ModelState.AddModelError("", "The user login and password combination is invalid.");
                 }
                 else
                 {
-                    if (ULV.Password.Equals(password))
+                    HashProvider hasher = new HashProvider();
+                    if (hasher.VerifyPasswordMatch(hashSalt[0], ULV.Password, hashSalt[1]))
                     {
                         FormsAuthentication.SetAuthCookie(ULV.LoginName, false);
+                        return RedirectToAction("Welcome", "Home", ULV);
                     }
                     else
                     {
                         ModelState.AddModelError("", "The user login and password combination is invalid.");
+                        return RedirectToAction("Login", ULV);
                     }
                 }
             }
-
-            return View(ULV);
+            ModelState.AddModelError("", "The user login and password combination is invalid.");
+            return RedirectToAction("Login", ULV);
         }
 
         [Authorize]
@@ -72,6 +83,5 @@ namespace Capstone.Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

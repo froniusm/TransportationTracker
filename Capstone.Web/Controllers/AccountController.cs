@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using Capstone.Web.Models.ViewModel;
 using Capstone.Web.Models.EntityManager;
+using Capstone.Web.Crypto;
 
 namespace Capstone.Web.Controllers
 {
@@ -22,10 +23,13 @@ namespace Capstone.Web.Controllers
             if (ModelState.IsValid) {
                 UserManager UM = new UserManager();
                 if (!UM.IsLoginNameExist(USV.LoginName)) {
+                    HashProvider hasher = new HashProvider();
+                    string hashedPassword = hasher.HashPassword(USV.Password);
+                    USV.Salt = hasher.SaltValue;
+                    USV.Password = hashedPassword;
                     UM.AddUserAccount(USV);
                     FormsAuthentication.SetAuthCookie(USV.FirstName, false);
                     return RedirectToAction("Welcome", "Home");
-
                 }
                 else
                     ModelState.AddModelError("", "Login Name already taken.");

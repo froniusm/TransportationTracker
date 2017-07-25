@@ -204,6 +204,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Crypto\HashProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +215,15 @@
       <DependentUpon>TransportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\Schedule.cs">
+      <DependentUpon>TransportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>TransportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\sp_helpdiagrams_Result.cs">
+      <DependentUpon>TransportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\sysdiagram.cs">
       <DependentUpon>TransportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\SYSUser.cs">

@@ -1,27 +1,38 @@
 ﻿using System;
 using System.Web;
-using System.Linq;  
-using Capstone.Web.Models.DB;  
+using System.Linq;
+using Capstone.Web.Models.DB;
 using Capstone.Web.Models.ViewModel;
 
 namespace Capstone.Web.Models.EntityManager
 {
     public class UserManager
     {
-        public void AddUserAccount(RegistrationModel user) {
+        public void AddUserAccount(RegistrationModel user)
+        {
 
-            using (TransportationDBEntities db = new TransportationDBEntities()) {
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
 
                 SYSUser SU = new SYSUser();
                 SU.LoginName = user.LoginName;
                 SU.PasswordEncryptedText = user.Password;
                 SU.RowCreatedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID : 1;
                 SU.RowModifiedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID : 1; ;
+                SU.Salt = user.Salt;
                 SU.RowCreatedDateTime = DateTime.Now;
-                SU.RowMOdifiedDateTime = DateTime.Now;
+                SU.RowModifiedDateTime = DateTime.Now;
 
-                db.SYSUsers.Add(SU);
-                db.SaveChanges();
+                try
+                {
+                    db.SYSUsers.Add(SU);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
 
                 SYSUserProfile SUP = new SYSUserProfile();
                 SUP.SYSUserID = SU.SYSUserID;
@@ -38,7 +49,8 @@ namespace Capstone.Web.Models.EntityManager
                 db.SaveChanges();
 
 
-                if (user.LOOKUPRoleID > 0) {
+                if (user.LOOKUPRoleID > 0)
+                {
                     SYSUserRole SUR = new SYSUserRole();
                     SUR.LOOKUPRoleID = user.LOOKUPRoleID;
                     SUR.SYSUserID = user.SYSUserID;
@@ -54,8 +66,10 @@ namespace Capstone.Web.Models.EntityManager
             }
         }
 
-        public bool IsLoginNameExist(string loginName) {
-            using (TransportationDBEntities db = new TransportationDBEntities()) {
+        public bool IsLoginNameExist(string loginName)
+        {
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
                 return db.SYSUsers.Where(o => o.LoginName.Equals(loginName)).Any();
             }
         }

@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[SYSUser](
     [RowCreatedSYSUserID] [int] NOT NULL,
     [RowCreatedDateTime] [datetime] DEFAULT GETDATE(),
     [RowModifiedSYSUserID] [int] NOT NULL,
-    [RowMOdifiedDateTime] [datetime] DEFAULT GETDATE(),
+    [RowModifiedDateTime] [datetime] DEFAULT GETDATE(),
     PRIMARY KEY (SYSUserID)
 )
 

@@ -9,7 +9,6 @@ namespace Capstone.Web.Crypto
     public class HashProvider
     {
         private const int WorkFactor = 100;
-
         public string SaltValue { get; private set; }
 
         public string HashPassword(string plainTextPassword)

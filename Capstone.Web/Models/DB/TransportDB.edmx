@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TransportationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TransportationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="LOOKUPRole">
           <Key>
             <PropertyRef Name="LOOKUPRoleID" />
@@ -45,6 +45,7 @@
           <Property Name="RowCreatedDateTime" Type="datetime" />
           <Property Name="RowModifiedSYSUserID" Type="int" Nullable="false" />
           <Property Name="RowMOdifiedDateTime" Type="datetime" />
+          <Property Name="Salt" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="SYSUserProfile">
           <Key>
@@ -238,8 +239,7 @@
             <End Role="WaypointsSchedule" EntitySet="WaypointsSchedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TransportationDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -290,6 +290,7 @@
           <NavigationProperty Name="SYSUserProfiles" Relationship="Self.FK__SYSUserPr__SYSUs__1BFD2C07" FromRole="SYSUser" ToRole="SYSUserProfile" />
           <NavigationProperty Name="SYSUserRoles" Relationship="Self.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUser" ToRole="SYSUserRole" />
           <NavigationProperty Name="Routes" Relationship="Self.UserRoutes" FromRole="SYSUser" ToRole="Routes" />
+          <Property Name="Salt" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SYSUserProfile">
           <Key>
@@ -463,6 +464,7 @@
           <EntitySetMapping Name="SYSUsers">
             <EntityTypeMapping TypeName="TransportationDBModel.SYSUser">
               <MappingFragment StoreEntitySet="SYSUser">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
                 <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
                 <ScalarProperty Name="LoginName" ColumnName="LoginName" />
                 <ScalarProperty Name="PasswordEncryptedText" ColumnName="PasswordEncryptedText" />

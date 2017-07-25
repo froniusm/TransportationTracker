@@ -118,3 +118,5 @@ REFERENCES [dbo].[SYSUser] ([SYSUserID])
 ALTER TABLE [dbo].[UserRoutes] WITH CHECK ADD FOREIGN KEY ([RouteID])
 REFERENCES [dbo].[Routes] ([RouteID])
 
+ALTER TABLE [dbo].[SYSUser]
+ADD [Salt] [varchar](8) NULL;

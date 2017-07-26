@@ -69,12 +69,11 @@ namespace Capstone.Web.Controllers
                     else
                     {
                         ModelState.AddModelError("", "The user login and password combination is invalid.");
-                        return RedirectToAction("Login", ULV);
                     }
                 }
             }
             ModelState.AddModelError("", "The user login and password combination is invalid.");
-            return RedirectToAction("Login", ULV);
+            return View();
         }
 
         [Authorize]

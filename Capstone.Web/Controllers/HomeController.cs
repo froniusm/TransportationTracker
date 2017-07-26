@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Web.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,18 @@ namespace Capstone.Web.Controllers
 
         [Authorize]
         public ActionResult Welcome() {
+            return View();
+        }
+
+        //Only allow admin users to access the AdminOnly page
+        [AuthorizeRoles("Admin")]
+        public ActionResult AdminOnly()
+        {
+            return View();
+        }
+
+        public ActionResult UnAuthorized()
+        {
             return View();
         }
     }

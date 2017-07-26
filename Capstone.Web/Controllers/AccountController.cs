@@ -57,6 +57,7 @@ namespace Capstone.Web.Controllers
                 if (hashSalt.Count == 0)
                 {
                     ModelState.AddModelError("", "The user login and password combination is invalid.");
+                    return View();
                 }
                 else
                 {

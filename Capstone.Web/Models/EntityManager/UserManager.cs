@@ -122,7 +122,7 @@ namespace Capstone.Web.Models.EntityManager
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
                 SYSUser SU = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
-                SYSUserRole SR = db.SYSUserRoles.Where(r => r.SYSUserRoleID.Equals(SU.SYSUserID))?.FirstOrDefault();
+                SYSUserRole SR = db.SYSUserRoles.Where(r => r.SYSUserID.Equals(SU.SYSUserID))?.FirstOrDefault();
                 LOOKUPRole LR = db.LOOKUPRoles.Where(i => i.LOOKUPRoleID.Equals(SR.LOOKUPRoleID))?.FirstOrDefault();
                 return LR.RoleName;
             }

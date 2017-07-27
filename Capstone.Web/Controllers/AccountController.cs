@@ -65,6 +65,7 @@ namespace Capstone.Web.Controllers
                     if (hasher.VerifyPasswordMatch(hashSalt[0], ULV.Password, hashSalt[1]))
                     {
                         FormsAuthentication.SetAuthCookie(ULV.LoginName, false);
+                        string role = UM.GetUserRole(ULV.LoginName);
                         return RedirectToAction("Welcome", "Home", ULV);
                     }
                     else

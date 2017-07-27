@@ -121,10 +121,8 @@ namespace Capstone.Web.Models.EntityManager
         {
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
-                SYSUser SU = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
-                SYSUserRole SR = db.SYSUserRoles.Where(r => r.SYSUserID.Equals(SU.SYSUserID))?.FirstOrDefault();
-                LOOKUPRole LR = db.LOOKUPRoles.Where(i => i.LOOKUPRoleID.Equals(SR.LOOKUPRoleID))?.FirstOrDefault();
-                return LR.RoleName;
+                string role = db.SYSUsers.First(u => u.LoginName == loginName).SYSUserRoles.First().LOOKUPRole.RoleName;
+                return role;
             }
         }
         
@@ -135,6 +133,17 @@ namespace Capstone.Web.Models.EntityManager
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
                 routes = db.Routes.Where(m => m.IsPrivate.Equals(0))?.AsEnumerable().ToList();
+            }
+            return routes;
+        }
+
+        public List<Route> GetPrivateRoutes(string loginName)
+        {
+            List<Route> routes = new List<Route>();
+
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                routes = db.SYSUsers.First(u => u.LoginName == loginName).Routes.ToList();
             }
             return routes;
         }

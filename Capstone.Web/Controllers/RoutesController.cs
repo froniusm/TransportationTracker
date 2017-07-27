@@ -22,6 +22,8 @@ namespace Capstone.Web.Controllers
             UserRoutesView model = new UserRoutesView();
             UserManager um = new UserManager();
 
+            model.publicRoutes = um.GetPublicRoutes();
+
             // model.publicRoutes;
             return View("ViewRoutes", model);
         }

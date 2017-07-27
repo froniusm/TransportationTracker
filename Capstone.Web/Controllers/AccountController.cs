@@ -66,6 +66,8 @@ namespace Capstone.Web.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(ULV.LoginName, false);
                         string role = UM.GetUserRole(ULV.LoginName);
+                        Session["userRole"] = role;
+                        Session["userName"] = ULV.LoginName;
                         return RedirectToAction("Welcome", "Home", ULV);
                     }
                     else

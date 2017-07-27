@@ -128,5 +128,17 @@ namespace Capstone.Web.Models.EntityManager
             }
         }
         
+        public List<Route> GetPublicRoutes()
+        {
+            List<Route> routes = new List<Route>();
+
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+
+            }
+
+            return routes;
+        }
+        
     }
 }

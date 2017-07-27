@@ -5,6 +5,24 @@ ul {
     list-style: none;
 }
 
+.nav-item {
+    padding: 10px;
+}
+.navbar {
+    background-color: #0A2D58;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #96A3CD;
+}
+.navbar-nav > .active > a {
+    text-decoration: none;
+}
+
+#navbarNav a:hover {
+    color: #D71624;
+    text-decoration: none;
+}
+
 footer {
     text-align: center;
     /*color:*/ 

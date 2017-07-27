@@ -7,14 +7,122 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_Layout</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    @RenderBody()
+    <!--If anonymous-->
+    @if (Session["userRole"] == null)
+    {
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" id="navbarNav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand" href="#">Transportation Tracker</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a>@Html.ActionLink("Home", "Index", "Home")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Routes", "ViewRoutes", "Routes")</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@Html.ActionLink("Sign In", "Login", "Account")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("Sign Up", "SignUp", "Account")</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    }
+    <!--If user-->
+    @if ((string)Session["userRole"] == "Member")
+    {
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" id="navbarNav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand" href="#">Transportation Tracker</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a>@Html.ActionLink("Home", "Index", "Home")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Routes", "ViewAllRoutes", "Routes")</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@Html.ActionLink("Sign Out", "SignOut", "Account")</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    }
+    <!--If Admin-->
+    @if ((string)Session["userRole"] == "Admin")
+    {
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" id="navbarNav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand" href="#">Transportation Tracker</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a>@Html.ActionLink("Home", "Index", "Home")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Routes", "ViewAllRoutes", "Routes")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Users", "ViewUsers", "Routes")</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@Html.ActionLink("Sign Out", "SignOut", "Account")</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    }
+    <section class="container">
+        @RenderBody()
+    </section>
+    <footer class="container">
+        <hr />
+        <p>Made by Ilona, Justin, Kevin, and Molly | Tech Elevator | 2017</p>
+        <hr />
+    </footer>
 </body>
 </html>

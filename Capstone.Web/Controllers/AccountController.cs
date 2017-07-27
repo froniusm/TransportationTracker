@@ -85,6 +85,7 @@ namespace Capstone.Web.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
     }

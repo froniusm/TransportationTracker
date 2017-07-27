@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Capstone.Web.Models.DB;
 
 namespace Capstone.Web.Models.ViewModel
 {
@@ -46,4 +47,12 @@ namespace Capstone.Web.Models.ViewModel
         [Display(Name = "Password")]
         public string Password { get; set; }
     }
+
+    public class UserRoutesView
+    {
+        public List<Route> privateRoutes { get; set; }
+        public List<Route> publicRoutes { get; set; }
+
+    }
+
 }

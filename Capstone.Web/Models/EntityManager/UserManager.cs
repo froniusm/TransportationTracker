@@ -116,5 +116,28 @@ namespace Capstone.Web.Models.EntityManager
                 return false;
             }
         }
+        
+        public string GetUserRole(string loginName)
+        {
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                SYSUser SU = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
+                SYSUserRole SR = db.SYSUserRoles.Where(r => r.SYSUserID.Equals(SU.SYSUserID))?.FirstOrDefault();
+                LOOKUPRole LR = db.LOOKUPRoles.Where(i => i.LOOKUPRoleID.Equals(SR.LOOKUPRoleID))?.FirstOrDefault();
+                return LR.RoleName;
+            }
+        }
+        
+        public List<Route> GetPublicRoutes()
+        {
+            List<Route> routes = new List<Route>();
+
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                routes = db.Routes.Where(m => m.IsPrivate.Equals(0))?.AsEnumerable().ToList();
+            }
+            return routes;
+        }
+        
     }
 }

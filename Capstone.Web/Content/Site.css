@@ -1,0 +1,13 @@
+﻿body {
+}
+
+ul {
+    list-style: none;
+}
+
+footer {
+    text-align: center;
+    /*color:*/ 
+    font-weight: bold;
+    font-size: 1.2em;
+}

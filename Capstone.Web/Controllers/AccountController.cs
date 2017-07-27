@@ -62,6 +62,7 @@ namespace Capstone.Web.Controllers
                 else
                 {
                     HashProvider hasher = new HashProvider();
+                    //The first item in the hashsalt list represents the hashed password. The second item represents the salt.
                     if (hasher.VerifyPasswordMatch(hashSalt[0], ULV.Password, hashSalt[1]))
                     {
                         FormsAuthentication.SetAuthCookie(ULV.LoginName, false);

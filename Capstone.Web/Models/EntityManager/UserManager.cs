@@ -81,6 +81,7 @@ namespace Capstone.Web.Models.EntityManager
             {
                 var user = db.SYSUsers.Where(m => m.LoginName.ToLower().Equals(loginName));
 
+                //The first item in the hashsalt list represents the hashed password. The second item represents the salt.
                 List<string> hashSalt = new List<string>();
                 if (user.Any())
                 {

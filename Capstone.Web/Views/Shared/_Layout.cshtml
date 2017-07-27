@@ -18,45 +18,104 @@
 </head>
 <body>
     <!--If anonymous-->
+    @if (Session["userRole"] == null)
+    {
     <nav class="navbar navbar-inverse">
         <div class="container-fluid" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a>@Html.ActionLink("Home", "Index", "Home")</a>
-                </li>
-                <li class="nav-item">
-                    <a>@Html.ActionLink("View Routes", "ViewRoutes", "Routes")</a>
-                </li>
-                <li class="nav-item navbar-right">
-                    <a>@Html.ActionLink("Sign In", "Login", "Account")</a>
-                </li>
-                <li class="nav-item navbar-right">
-                    <a>@Html.ActionLink("Sign Up", "SignUp", "Account")</a>
-                </li>
-            </ul>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand" href="#">Transportation Tracker</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a>@Html.ActionLink("Home", "Index", "Home")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Routes", "ViewRoutes", "Routes")</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@Html.ActionLink("Sign In", "Login", "Account")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("Sign Up", "SignUp", "Account")</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    @*<!--If user-->
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="nav-item">@Html.ActionLink("View Routes", "ViewAllRoutes", "Routes")</li>
-                    <li class="nav-item">@Html.ActionLink("Sign Out", "SignOut", "Account")</li>
+    }
+    <!--If user-->
+    @if ((string)Session["userRole"] == "Member")
+    {
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" id="navbarNav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand" href="#">Transportation Tracker</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a>@Html.ActionLink("Home", "Index", "Home")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Routes", "ViewAllRoutes", "Routes")</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@Html.ActionLink("Sign Out", "SignOut", "Account")</a>
+                    </li>
                 </ul>
             </div>
-        </nav>
-        <!--If Admin-->
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="nav-item">@Html.ActionLink("View Routes", "ViewAllRoutes", "Routes")</li>
-                    <li class="nav-item">@Html.ActionLink("View Users", "ViewUsers", "Routes")</li>
-                    <li class="nav-item">@Html.ActionLink("Sign Out", "SignOut", "Account")</li>
+        </div>
+    </nav>
+    }
+    <!--If Admin-->
+    @if ((string)Session["userRole"] == "Admin")
+    {
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" id="navbarNav">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand" href="#">Transportation Tracker</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a>@Html.ActionLink("Home", "Index", "Home")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Routes", "ViewAllRoutes", "Routes")</a>
+                    </li>
+                    <li>
+                        <a>@Html.ActionLink("View Users", "ViewUsers", "Routes")</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@Html.ActionLink("Sign Out", "SignOut", "Account")</a>
+                    </li>
                 </ul>
             </div>
-        </nav>*@
+        </div>
+    </nav>
+    }
     <section class="container">
         @RenderBody()
     </section>

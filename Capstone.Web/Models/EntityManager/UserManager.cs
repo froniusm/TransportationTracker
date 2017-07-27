@@ -134,9 +134,8 @@ namespace Capstone.Web.Models.EntityManager
 
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
-
+                routes = db.Routes.Where(m => m.IsPrivate.Equals(0))?.AsEnumerable().ToList();
             }
-
             return routes;
         }
         

@@ -79,7 +79,8 @@ CREATE TABLE [dbo].[Waypoints] (
 	[WaypointID] [int] IDENTITY(1,1) NOT NULL,
 	[RouteID] [int] NOT NULL,
 	[Intersection] [varchar](200) NOT NULL,
-	[Coordinate] [decimal](12,9) NOT NULL,
+	[Longitude] [decimal](12,9) NOT NULL,
+	[Latitude] [decimal](12,9) NOT NULL,
 	PRIMARY KEY (WaypointID)
 )
 
@@ -120,12 +121,12 @@ ALTER TABLE [dbo].[UserRoutes] WITH CHECK ADD FOREIGN KEY ([RouteID])
 REFERENCES [dbo].[Routes] ([RouteID])
 
 
-DROP TABLE [dbo].[SYSUser] 
 DROP TABLE [dbo].[UserRoutes]
 DROP TABLE [dbo].[WaypointsSchedule]
 DROP TABLE [dbo].[Schedules]
 DROP TABLE [dbo].[Waypoints]
 DROP TABLE [dbo].[Routes]
-DROP TABLE [dbo].[LOOKUPRole]
 DROP TABLE [dbo].[SYSUserProfile]
 DROP TABLE [dbo].[SYSUserRole]
+DROP TABLE [dbo].[SYSUser]
+DROP TABLE [dbo].[LOOKUPRole]

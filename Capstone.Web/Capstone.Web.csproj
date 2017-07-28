@@ -173,6 +173,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TransportDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="images\SignIn.JPG" />
+    <Content Include="images\ViewRoutes.JPG" />
+    <Content Include="images\WCTsignUpToday.gif" />
     <Content Include="Models\DB\TransportDB.edmx.diagram">
       <DependentUpon>TransportDB.edmx</DependentUpon>
     </Content>

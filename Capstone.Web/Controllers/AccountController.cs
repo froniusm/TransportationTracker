@@ -47,7 +47,7 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogIn(UserLoginView ULV, string returnUrl)
+        public ActionResult Login(UserLoginView ULV, string returnUrl)
         {
             if (ModelState.IsValid)
             {

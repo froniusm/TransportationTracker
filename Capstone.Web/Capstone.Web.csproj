@@ -280,6 +280,7 @@
     <Content Include="Views\Routes\ViewRoutes.cshtml" />
     <Content Include="Views\ManageUser\ManageUsers.cshtml" />
     <Content Include="Views\ManageUser\Unauthorized.cshtml" />
+    <Content Include="Views\Routes\AdminViewRoutes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

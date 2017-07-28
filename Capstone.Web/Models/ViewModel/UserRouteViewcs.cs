@@ -8,7 +8,7 @@ namespace Capstone.Web.Models.DB
 {
     public class UserRouteView
     {
-        public List<Route> privateRotes;
-        
+        public List<Route> privateRoutes;
+        public List<Route> publicRoutes;
     }
 }

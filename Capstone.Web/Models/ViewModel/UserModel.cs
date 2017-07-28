@@ -50,9 +50,9 @@ namespace Capstone.Web.Models.ViewModel
 
     public class UserRoutesView
     {
-        public List<Route> privateRoutes { get; set; }
-        public List<Route> publicRoutes { get; set; }
-
+        public List<Route> PrivateRoutes { get; set; }
+        public List<Route> PublicRoutes { get; set; }
+        public List<Route> AllRoutes { get; set; }
     }
 
 }

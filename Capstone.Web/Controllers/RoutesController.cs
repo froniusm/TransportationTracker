@@ -20,10 +20,15 @@ namespace Capstone.Web.Controllers
 
         public ActionResult ViewRoutes()
         {
-            UserRoutesView model = new UserRoutesView();
             UserManager um = new UserManager();
+            UserRoutesView model = new UserRoutesView();
 
-            model.PublicRoutes = um.GetPublicRoutes();
+            model.PublicRoutes = um.GetPublicRoutes();      
+            model.AllRoutes = um.GetAllRoutes();
+            if (Session["userName"] != null)
+            {
+                model.PrivateRoutes = um.GetPrivateRoutes(Session["userName"].ToString());
+            }    
 
             // model.publicRoutes;
             return View("ViewRoutes", model);

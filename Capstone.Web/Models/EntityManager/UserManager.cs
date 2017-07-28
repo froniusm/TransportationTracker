@@ -149,5 +149,15 @@ namespace Capstone.Web.Models.EntityManager
             return routes;
         }
         
+        public List<Route> GetAllRoutes()
+        {
+            List<Route> routes = new List<Route>();
+
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                routes = db.Routes.ToList();
+            }
+            return routes;
+        }
     }
 }

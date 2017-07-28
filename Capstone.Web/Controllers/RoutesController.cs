@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Capstone.Web.Models.ViewModel;
 using Capstone.Web.Models.DB;
 using Capstone.Web.Models.EntityManager;
+using Capstone.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
@@ -22,24 +23,20 @@ namespace Capstone.Web.Controllers
             UserRoutesView model = new UserRoutesView();
             UserManager um = new UserManager();
 
-            model.publicRoutes = um.GetPublicRoutes();
+            model.PublicRoutes = um.GetPublicRoutes();
 
             // model.publicRoutes;
             return View("ViewRoutes", model);
         }
-        /*
-         * public ActionResult ViewRoutes()
-         *  
-         *     UserRouteViewModel model = new UserRouteViewModel()
-         *     model.PublicRoutes = UserManager.GetPublicROutes()
-         *     
-         *     if (userIsLoggedIn)          
-         *           model.PrivateRoutes = UserManager.GetPrivateRoutes()
-         *     else 
-         *           model.PrivateRoutes = new List<Route>(); // Just so it's not null
-         *         
-         *    
-         *    return View("ViewRoutes", model);
-          */
+
+        [AuthorizeRoles("Admin")]
+        public ActionResult AdminViewRoutes()
+        {
+            UserRoutesView model = new UserRoutesView();
+            UserManager um = new UserManager();
+            model.AllRoutes = um.GetAllRoutes();
+
+            return View("AdminViewRoutes", model);
+        }
     }
 }

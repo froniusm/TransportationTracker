@@ -4,6 +4,10 @@
 
 USE [TransportationDB] 
 
+-- *********
+-- User Roles
+-- *********
+
 INSERT INTO LOOKUPRole (RoleName,RoleDescription,RowCreatedSYSUserID,RowModifiedSYSUserID)  
        VALUES ('Admin','Can Create, Edit, Update, Delete',1,1);
 INSERT INTO LOOKUPRole (RoleName,RoleDescription,RowCreatedSYSUserID,RowModifiedSYSUserID)  

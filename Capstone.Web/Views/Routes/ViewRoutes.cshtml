@@ -4,10 +4,44 @@
 
 <h2>Look at all the pretty routes that don't exist yet!  Hurray! </h2>
 
-<div>
-    <table>
-        <tr>
-            @Model.publicRoutes[0].Name
-        </tr>
+<div id="route-selector">
+    <table id="private-routes">
+        @foreach (var route in Model.PrivateRoutes)
+        {
+            <tr>
+                <td>
+                    @route.Name
+                </td>
+            </tr>
+        }
+    </table>
+
+    <table id="public-routes">
+        @foreach (var route in Model.PublicRoutes)
+        {
+            <tr>
+                <td>
+                    @route.Name
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div id="route-details">
+    <table id="waypoint-times-table">
+        <thead>
+            <tr>
+                @foreach (var waypoint in Model.PublicRoutes[0].Waypoints)
+                {
+                    <th>
+                        @waypoint.Intersection
+                    </th>
+                }
+                {
+
+                }
+            </tr>
+        </thead>
     </table>
 </div>

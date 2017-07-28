@@ -8,7 +8,7 @@
     @if (Model.PrivateRoutes != null)
     {
         <table id="private-routes">
-            @foreach (var route in Model.PrivateRoutes)
+            @foreach (var route in Model.AllRoutes)
             {
                 <tr>
                     <td>
@@ -19,7 +19,7 @@
         </table>
 
         <table id="public-routes">
-            @foreach (var route in Model.PublicRoutes)
+            @foreach (var route in Model.AllRoutes)
             {
                 <tr>
                     <td>
@@ -29,7 +29,7 @@
             }
         </table>
     }
-    
+
 </div>
 
 <div id="route-details">
@@ -42,10 +42,18 @@
                         @waypoint.Intersection
                     </th>
                 }
-                {
-
-                }
             </tr>
         </thead>
+        <tr>
+
+
+           <!-- for (int i = 0; i < Model.AllRoutes[0].Waypoints.Count; i++)
+            {
+                <td>
+
+                   Model.AllRoutes[0].Waypoints[i]
+                </td>
+            } -->
+        </tr>
     </table>
 </div>

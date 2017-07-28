@@ -151,6 +151,64 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\Capstone.Web.dll" />
+    <Content Include="bin\Capstone.Web.pdb" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.Web.xml" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
+    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.dll" />
+    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Ninject.dll" />
+    <Content Include="bin\Ninject.Web.Common.dll" />
+    <Content Include="bin\Ninject.Web.Common.xml" />
+    <Content Include="bin\Ninject.Web.Mvc.dll" />
+    <Content Include="bin\Ninject.Web.Mvc.xml" />
+    <Content Include="bin\Ninject.xml" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="bin\System.Web.Webpages.Deployment.xml" />
+    <Content Include="bin\System.Web.Webpages.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.xml" />
+    <Content Include="bin\WebActivatorEx.dll" />
+    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -169,16 +227,21 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\SignIn.JPG" />
+    <Content Include="images\ViewRoutes.JPG" />
+    <Content Include="images\WCTsignUpToday.gif" />
     <EntityDeploy Include="Models\DB\TransportDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TransportDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="images\SignIn.JPG" />
-    <Content Include="images\ViewRoutes.JPG" />
-    <Content Include="images\WCTsignUpToday.gif" />
     <Content Include="Models\DB\TransportDB.edmx.diagram">
       <DependentUpon>TransportDB.edmx</DependentUpon>
     </Content>
+    <Content Include="bin\ApplicationInsights.config" />
+    <None Include="bin\Capstone.Web.dll.config" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Models\DB\TransportDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -213,9 +276,12 @@
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Crypto\HashProvider.cs" />
+    <Compile Include="DAL\TestWaypointDAL.cs" />
+    <Compile Include="DAL\WaypointDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="DAL\IWaypointDAL.cs" />
     <Compile Include="Models\DB\LOOKUPRole.cs">
       <DependentUpon>TransportDB.tt</DependentUpon>
     </Compile>
@@ -259,6 +325,9 @@
       <DependentUpon>TransportDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\Waypoint.cs">
+      <DependentUpon>TransportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\WaypointsSchedule.cs">
       <DependentUpon>TransportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityManager\UserManager.cs" />

@@ -30,11 +30,12 @@ namespace Capstone.Web.Models.DB
         public virtual DbSet<LOOKUPRole> LOOKUPRoles { get; set; }
         public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<SYSUser> SYSUsers { get; set; }
         public virtual DbSet<SYSUserProfile> SYSUserProfiles { get; set; }
         public virtual DbSet<SYSUserRole> SYSUserRoles { get; set; }
         public virtual DbSet<Waypoint> Waypoints { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<WaypointsSchedule> WaypointsSchedules { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

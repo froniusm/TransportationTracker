@@ -4,6 +4,7 @@ using System.Web;
 using System.Linq;
 using Capstone.Web.Models.DB;
 using Capstone.Web.Models.ViewModel;
+using Capstone.Web.DAL;
 
 namespace Capstone.Web.Models.EntityManager
 {
@@ -148,7 +149,7 @@ namespace Capstone.Web.Models.EntityManager
             }
             return routes;
         }
-        
+
         public List<Route> GetAllRoutes()
         {
             List<Route> routes = new List<Route>();
@@ -156,6 +157,16 @@ namespace Capstone.Web.Models.EntityManager
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
                 routes = db.Routes.ToList();
+                foreach (Route route in routes)
+                {
+                    route.Waypoints = db.Waypoints.Where(i => i.RouteID.Equals(route.RouteID)).ToList();
+                    foreach (Waypoint waypoint in route.Waypoints)
+                    {
+
+                        // WaypointSQLDAL dal = new WaypointSQLDAL(dbConnectionString);
+                        // waypoint.Schedules = dal.Return_Schedules_(Waypoint.ID);
+                    }
+                }
             }
             return routes;
         }

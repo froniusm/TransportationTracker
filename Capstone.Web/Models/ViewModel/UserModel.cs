@@ -53,6 +53,7 @@ namespace Capstone.Web.Models.ViewModel
         public List<Route> PrivateRoutes { get; set; }
         public List<Route> PublicRoutes { get; set; }
         public List<Route> AllRoutes { get; set; }
+        
     }
 
 }

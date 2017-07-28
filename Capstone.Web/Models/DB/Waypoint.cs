@@ -23,7 +23,8 @@ namespace Capstone.Web.Models.DB
         public int WaypointID { get; set; }
         public int RouteID { get; set; }
         public string Intersection { get; set; }
-        public decimal Coordinate { get; set; }
+        public decimal Longitude { get; set; }
+        public decimal Latitude { get; set; }
     
         public virtual Route Route { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

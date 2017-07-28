@@ -12,13 +12,9 @@ namespace Capstone.Web.Models.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Schedule
+    public partial class WaypointsSchedule
     {
         public int ScheduleID { get; set; }
-        public int Sequence { get; set; }
-        public System.TimeSpan ETA { get; set; }
-        public Nullable<int> WaypointID { get; set; }
-    
-        public virtual Waypoint Waypoint { get; set; }
+        public int WaypointID { get; set; }
     }
 }

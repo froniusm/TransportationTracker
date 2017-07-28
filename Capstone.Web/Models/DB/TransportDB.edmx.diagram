@@ -4,21 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0cfecceb327a4d02b4a5f5ddfb704004" Name="Diagram1">
-        <EntityTypeShape EntityType="TransportationDBModel.LOOKUPRole" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDBModel.Route" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDBModel.Schedule" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDBModel.SYSUser" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDBModel.SYSUserProfile" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDBModel.SYSUserRole" Width="2.375" PointX="8.5" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportationDBModel.Waypoint" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="TransportationDBModel.FK__SYSUserRo__LOOKU__21B6055D" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportationDBModel.FK__Waypoints__Route__276EDEB3" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportationDBModel.FK__SYSUserPr__SYSUs__1BFD2C07" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportationDBModel.FK__SYSUserRo__SYSUs__22AA2996" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportationDBModel.UserRoutes" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportationDBModel.WaypointsSchedule" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TransportationDBModel.sysdiagram" Width="1.5" PointX="8.375" PointY="0.75" />
+      <Diagram DiagramId="194e582ce3c144bc91ed8c0cbf350453" Name="Diagram1">
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.LOOKUPRole" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.Route" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.Schedule" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.sysdiagram" Width="1.5" PointX="7.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.SYSUser" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.SYSUserProfile" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.SYSUserRole" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.Waypoint" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbe23b13d1adfa41179ccfa7bc00f3296dModel.WaypointsSchedule" Width="1.5" PointX="1.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="dbe23b13d1adfa41179ccfa7bc00f3296dModel.FK__SYSUserRo__LOOKU__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="dbe23b13d1adfa41179ccfa7bc00f3296dModel.FK__Waypoints__Route__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="dbe23b13d1adfa41179ccfa7bc00f3296dModel.FK__Schedules__Waypo__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="dbe23b13d1adfa41179ccfa7bc00f3296dModel.FK__SYSUserPr__SYSUs__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="dbe23b13d1adfa41179ccfa7bc00f3296dModel.FK__SYSUserRo__SYSUs__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="dbe23b13d1adfa41179ccfa7bc00f3296dModel.UserRoutes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

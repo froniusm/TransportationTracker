@@ -5,11 +5,15 @@ namespace Capstone.Web.App_Start
 {
     using System;
     using System.Web;
+    using System.Configuration;
+    using System.Data.SqlClient;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
+
+    using Capstone.Web.DAL;
 
     public static class NinjectWebCommon 
     {
@@ -61,6 +65,7 @@ namespace Capstone.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IWaypointDAL>().To<WaypointDAL>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["TransportationDBEntities"].ConnectionString);
         }        
     }
 }

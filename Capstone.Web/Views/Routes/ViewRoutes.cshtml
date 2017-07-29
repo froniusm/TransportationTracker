@@ -2,58 +2,34 @@
 
 @model UserRoutesView
 
-<h2>Look at all the pretty routes that don't exist yet!  Hurray! </h2>
-
 <div id="route-selector">
-    @if (Model.PrivateRoutes != null)
-    {
+
         <table id="private-routes">
-            @foreach (var route in Model.AllRoutes)
-            {
-                <tr>
-                    <td>
-                        @route.Name
-                    </td>
-                </tr>
-            }
+
+
         </table>
 
         <table id="public-routes">
-            @foreach (var route in Model.AllRoutes)
+            @foreach (var item in Model.AllRoutes)
             {
                 <tr>
-                    <td>
-                        @route.Name
-                    </td>
+                    @item.Key.Name
                 </tr>
             }
         </table>
     }
 
+
+
+
 </div>
 
 <div id="route-details">
-    <table id="waypoint-times-table">
-        <thead>
-            <tr>
-                @foreach (var waypoint in Model.AllRoutes[0].Waypoints)
-                {
-                    <th>
-                        @waypoint.Intersection
-                    </th>
-                }
-            </tr>
-        </thead>
-        <tr>
+    @foreach (var item in Model.AllRoutes)
+    {
+        <table id="waypoint-times-table">
+ 
+        </table>
+    }
 
-
-           <!-- for (int i = 0; i < Model.AllRoutes[0].Waypoints.Count; i++)
-            {
-                <td>
-
-                   Model.AllRoutes[0].Waypoints[i]
-                </td>
-            } -->
-        </tr>
-    </table>
 </div>

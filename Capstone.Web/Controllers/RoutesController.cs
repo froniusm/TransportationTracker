@@ -28,17 +28,8 @@ namespace Capstone.Web.Controllers
 
         public ActionResult ViewRoutes()
         {
-            UserManager um = new UserManager();
             UserRoutesView model = new UserRoutesView();
-
-            model.PublicRoutes = um.GetPublicRoutes();
-            model.AllRoutes = DAL.GetAllRoutes();
-            if (Session["userName"] != null)
-            {
-                model.PrivateRoutes = um.GetPrivateRoutes(Session["userName"].ToString());
-            }    
-
-            // model.publicRoutes;
+            model= DAL.GetAllRoutes();
             return View("ViewRoutes", model);
         }
 
@@ -47,7 +38,7 @@ namespace Capstone.Web.Controllers
         {
             UserRoutesView model = new UserRoutesView();
             UserManager um = new UserManager();
-            model.AllRoutes = um.GetAllRoutes();
+            //model.AllRoutes = um.GetAllRoutes();
 
             return View("AdminViewRoutes", model);
         }

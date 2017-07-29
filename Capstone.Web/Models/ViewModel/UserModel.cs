@@ -50,10 +50,12 @@ namespace Capstone.Web.Models.ViewModel
 
     public class UserRoutesView
     {
-        public List<Route> PrivateRoutes { get; set; }
-        public List<Route> PublicRoutes { get; set; }
-        public List<Route> AllRoutes { get; set; }
-        
+        public Dictionary<Route, List<WaypointTimeModel>> AllRoutes { get; set; }
     }
 
+    public class WaypointTimeModel
+    {
+        public Waypoint Waypoint { get; set; }
+        public List<Schedule> Times { get; set; }
+    }
 }

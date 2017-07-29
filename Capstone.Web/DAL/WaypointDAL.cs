@@ -24,20 +24,31 @@ namespace Capstone.Web.DAL
             this.connectionString = sub;
         }
 
-        public List<Route> GetAllRoutes()
+        public UserRoutesView GetAllRoutes()
         {
-            List<Route> routes = new List<Route>();
+            UserRoutesView routes = new UserRoutesView();
+            Dictionary<Route, List<WaypointTimeModel>> allRoutes = new Dictionary<Route, List<WaypointTimeModel>>();
+            routes.AllRoutes = allRoutes;
 
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
-                routes = db.Routes.ToList();
-                foreach (Route route in routes)
+                
+                List<Route> tempRouteList = new List<Route>();
+                tempRouteList = db.Routes.ToList();
+                foreach (Route route in tempRouteList)
                 {
-                    route.Waypoints = db.Waypoints.Where(i => i.RouteID.Equals(route.RouteID)).ToList();
+                    List<WaypointTimeModel> waypointTimesList = new List<WaypointTimeModel>();
                     foreach (Waypoint waypoint in route.Waypoints)
                     {
-                        waypoint.Schedules = GetSchedules(waypoint.WaypointID);
+                        WaypointTimeModel waypointTimes = new WaypointTimeModel();
+                        waypointTimes.Waypoint = waypoint;
+
+                        List<Schedule> schedules = new List<Schedule>();
+
+                        waypointTimes.Times = db.Schedules.Where(i => i.WaypointID == (waypoint.WaypointID)).ToList();
+                        waypointTimesList.Add(waypointTimes);
                     }
+                    allRoutes[route] = waypointTimesList;
                 }
             }
             return routes;
@@ -59,7 +70,6 @@ namespace Capstone.Web.DAL
                     while (reader.Read())
                     {
                         schedules.Add(PopulateScheduleObject(reader));
-
                     }
                 }
             }

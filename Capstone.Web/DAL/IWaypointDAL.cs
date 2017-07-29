@@ -10,6 +10,6 @@ namespace Capstone.Web.DAL
     public interface IWaypointDAL
     {
         HashSet<Schedule> GetSchedules(int waypointID);
-        List<Route> GetAllRoutes();
+        UserRoutesView GetAllRoutes();
     }
 }

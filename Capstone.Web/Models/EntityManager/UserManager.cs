@@ -170,5 +170,27 @@ namespace Capstone.Web.Models.EntityManager
             }
             return routes;
         }
+
+        public void AddNewRoute(RouteViewModel model)
+        {
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                Route r = new Route();
+            
+                r.Day = model.Day;
+                r.Name = model.Name;
+                r.IsPrivate = model.IsPrivate;
+
+                try
+                {
+                    db.Routes.Add(r);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
     }
 }

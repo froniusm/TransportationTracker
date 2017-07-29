@@ -60,10 +60,16 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         [AuthorizeRoles("Admin")]
         [ValidateAntiForgeryToken()]
-        public ActionResult CreateRoute(Route r)
+        public ActionResult CreateRoute(RouteViewModel r)
         {
             // Add to database here
-            return RedirectToAction("CreateRouteWaypoints");
+            UserManager um = new UserManager();
+            um.AddNewRoute(r);
+
+            // Add route name to session
+            Session["newRouteName"] = r.Name;
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

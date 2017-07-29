@@ -1,5 +1,5 @@
 ﻿@using Capstone.Web.Models.ViewModel;
-@model UserRoutesView
+@model RouteViewModel
 
 @{
     ViewBag.Title = "CreateRoute";
@@ -8,18 +8,40 @@
 
 <h2>Routes</h2>
 
-@*@using (Html.BeginForm("CreateRoute", "Routes", FormMethod.Post))
+<h3>All Existing Routes:</h3>
+@foreach (string s in (List<string>)TempData["allRouteNames"])
 {
-    <table class="table-responsive table-striped table-bordered">
-        @foreach (var route in Model.AllRoutes)
-        {
+    <p class="glyphicon-exclamation-sign">@s</p>
+}
+<br />
+<h3 class="container-fluid">Add Your New Route Below: </h3>
+
+@Html.ValidationSummary()
+@using (Html.BeginForm("CreateRoute", "Routes", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Add a route" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.Label("Day", "Day of the week")
+        @Html.DropDownListFor(m => m.Day, RouteViewModel.Days())
+    </div>
+    <div class="form-group">
+        @Html.Label("IsPrivate", "Private Route")
+        @Html.CheckBoxFor(m => m.IsPrivate)
+    </div>
+    @* <table class="table-responsive table-striped table-bordered">
+             @foreach (var route in Model.AllRoutes)
+            {
+                <tr>
+                    @route.Key.Name
+                </tr>
+            }
             <tr>
-                @route.Key.Name
+                <!-- Html.TextBoxFor(m => m.AllRoutes., new { AT_SYMBOL class = "form-control", placeholder = "Add a route" }) -->
             </tr>
-        }
-        <tr>
-            @Html.TextBoxFor(m => m.AllRoutes., new { @class = "form-control", placeholder = "Add a route" })
-        </tr>
-    </table>
+        </table> *@
     <button type="submit" class="btn btn-primary">Submit</button>
-}*@
+}

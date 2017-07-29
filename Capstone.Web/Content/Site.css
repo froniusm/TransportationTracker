@@ -8,30 +8,37 @@ ul {
 .nav-item {
     padding: 10px;
 }
+
 .navbar {
     background-color: #0A2D58;
 }
+
 .navbar-inverse .navbar-nav > li > a {
     color: #96A3CD;
 }
+
 #brand {
     color: #96A3CD;
 }
+
 #navbarNav a {
     text-decoration: none;
 }
 
-#navbarNav a:hover {
-    color: #D71624;
-    text-decoration: none;
-}
+    #navbarNav a:hover {
+        color: #D71624;
+        text-decoration: none;
+    }
 
 footer {
     text-align: center;
-    /*color:*/ 
+    /*color:*/
     font-weight: bold;
     font-size: 1.2em;
 }
+
+
+/****** ViewRoutes *******/
 
 #route-selector {
     display: inline-flex;
@@ -39,4 +46,14 @@ footer {
 
 #route-details {
     display: inline-flex;
+    border: 1px solid black;
+}
+
+    #route-details td {
+        text-align: center;
+    }
+
+#waypoint-times-table {
+    margin: 0px;
+    float: right;
 }

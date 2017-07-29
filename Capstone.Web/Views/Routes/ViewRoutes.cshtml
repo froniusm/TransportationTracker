@@ -4,27 +4,28 @@
 
 <div id="route-selector">
 
-        <table id="private-routes">
+    <table id="private-routes"></table>
 
-
-        </table>
-
-        <table id="public-routes">
-            @foreach (var item in Model.AllRoutes)
+    <table id="public-routes">
+        @foreach (var item in Model.AllRoutes)
             {
-                <tr>
-                    @item.Key.Name
-                </tr>
-            }
-        </table>
+            <tr>
+                @item.Key.Name
+            </tr>
+        }
+    </table>
 
 </div>
 
 <div id="route-details">
     @foreach (var route in Model.AllRoutes)
     {
-        <table id="waypoint-times-table">
-            <thead>@route.Key.Name</thead>
+        <table id="waypoint-times-table" class="table table-hover">
+            <tr>
+                <td id="route-details-title" colspan= @route.Value.Count>
+                    @route.Key.Name
+                </td>
+            </tr>
             <tr>
                 @foreach (var waypoint in route.Value)
                 {

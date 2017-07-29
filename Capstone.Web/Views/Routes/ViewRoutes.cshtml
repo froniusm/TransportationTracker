@@ -25,10 +25,26 @@
 </div>
 
 <div id="route-details">
-    @foreach (var item in Model.AllRoutes)
+    @foreach (var route in Model.AllRoutes)
     {
         <table id="waypoint-times-table">
- 
+            <thead>@route.Key.Name</thead>
+            <tr>
+                @foreach (var waypoint in route.Value)
+                {
+                    <td>@waypoint.Waypoint.Intersection</td>
+                }
+            </tr>
+
+            @for (int i = 0; i < route.Value[0].Times.Count; i++)
+            {
+                <tr>
+                    @foreach (var waypoint in route.Value)
+                    {
+                        <td>@waypoint.Times[i].ETA</td>
+                    }
+                </tr>
+            }
         </table>
     }
 

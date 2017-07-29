@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Capstone.Web.Models.DB;
 
 namespace Capstone.Web.Models.ViewModel
@@ -57,5 +58,34 @@ namespace Capstone.Web.Models.ViewModel
     {
         public Waypoint Waypoint { get; set; }
         public List<Schedule> Times { get; set; }
+    }
+
+    public class RouteViewModel
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Day { get; set; }
+        public bool IsPrivate { get; set; }
+
+        public static List<SelectListItem> Days()
+        {
+            return new List<SelectListItem>()
+                {
+                    new SelectListItem { Text = "Sunday", Value = "Sunday" },
+                    new SelectListItem { Text = "Monday", Value = "Monday" },
+                    new SelectListItem { Text = "Tuesday", Value = "Tuesday" },
+                    new SelectListItem { Text = "Wednesday", Value = "Wednesday" },
+                    new SelectListItem { Text = "Thursday", Value = "Thursday" },
+                    new SelectListItem { Text = "Friday", Value = "Friday" },
+                    new SelectListItem { Text = "Saturday", Value = "Saturday" }
+                };
+        }
+    }
+
+    public class WaypointViewModel
+    {
+        public List<Waypoint> Waypoints { get; set; }
+        public string RouteName { get; set; }
     }
 }

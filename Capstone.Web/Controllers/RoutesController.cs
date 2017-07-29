@@ -42,5 +42,34 @@ namespace Capstone.Web.Controllers
 
             return View("AdminViewRoutes", model);
         }
+
+        [AuthorizeRoles("Admin")]
+        public ActionResult CreateRoute()
+        {
+            UserManager um = new UserManager();
+            List<Route> allExistingRoutes = um.GetAllRoutes();
+            List<string> allRouteNames = new List<string>();
+            foreach (Route r in allExistingRoutes)
+            {
+                allRouteNames.Add(r.Name);
+            }
+            TempData["allRouteNames"] = allRouteNames;
+            return View();
+        }
+
+        [HttpPost]
+        [AuthorizeRoles("Admin")]
+        [ValidateAntiForgeryToken()]
+        public ActionResult CreateRoute(RouteViewModel r)
+        {
+            // Add to database here
+            UserManager um = new UserManager();
+            um.AddNewRoute(r);
+
+            // Add route name to session
+            Session["newRouteName"] = r.Name;
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

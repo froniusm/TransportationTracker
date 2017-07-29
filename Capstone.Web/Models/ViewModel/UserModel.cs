@@ -82,4 +82,10 @@ namespace Capstone.Web.Models.ViewModel
                 };
         }
     }
+
+    public class WaypointViewModel
+    {
+        public List<Waypoint> Waypoints { get; set; }
+        public string RouteName { get; set; }
+    }
 }

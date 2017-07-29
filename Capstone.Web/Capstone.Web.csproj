@@ -353,6 +353,8 @@
     <Content Include="Views\ManageUser\ManageUsers.cshtml" />
     <Content Include="Views\ManageUser\Unauthorized.cshtml" />
     <Content Include="Views\Routes\AdminViewRoutes.cshtml" />
+    <Content Include="Views\Routes\CreateRoute.cshtml" />
+    <Content Include="Views\Routes\CreateRouteWaypoints.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

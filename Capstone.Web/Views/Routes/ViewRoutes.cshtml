@@ -7,17 +7,15 @@
 
     <div id="route-selector">
         <table id="private-routes" class="table table-hover">
-            @*<tr>
-                <td>Private Routes</td> Im leaving this commented out because i need to think of
-                                        a better way to title the tables so that js events dont apply
-                                        to the title rows
-            </tr>*@
+            <tr>
+                <td>Private Routes</td>
+            </tr>
             @foreach (var item in Model.AllRoutes)
             {
                 if (item.Key.IsPrivate)
                 {
                     <tr>
-                        <td id="TEST" class="private-route">
+                        <td class="private-route">
                             @item.Key.Name
                         </td>
                     </tr>
@@ -26,11 +24,9 @@
         </table>
 
         <table id="public-routes" class="table table-hover">
-            @*<tr>
-            <td>Public Routes</td>  Im leaving this commented out because i need to think of
-                                    a better way to title the tables so that js events dont apply
-                                    to the title rows
-            </tr>*@
+            <tr>
+            <td>Public Routes</td>
+            </tr>
             @foreach (var item in Model.AllRoutes)
             {
                 if (!item.Key.IsPrivate)

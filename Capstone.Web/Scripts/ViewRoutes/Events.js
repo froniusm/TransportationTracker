@@ -1,36 +1,42 @@
-﻿<reference path="../jquery-3.1.1.js" />
+﻿/// <reference path="../jquery-3.1.1.js" />
 
 $(document).ready(function () {
 
     var privateRouteSelector = $(".private-route");
     var publicRouteSelector = $(".public-route");
     var tables = $(".waypoint-times-table");
-    var TEST = $("#TEST");
-
-    TEST.on("click", function (event) {
-        consol.log("test works");
-    });
 
     privateRouteSelector.on("click", function (event) {
-        console.log("buttons work");
+
+        var tdText = $(this).html();
+        tdText = tdText.trim();
+
         for (var i = 0; i < tables.length; i++) {
+            tables[i].setAttribute("class", "hidden waypoint-times-table table-responsive table table-hover");
+        }
+        for (var i = 0; i < tables.length; i++) {
+            var tableName = tables[i].getAttribute("id");
 
-            console.log("buttons work");
-
-            if (this.privateRouteSelector.value == $(this.tables).attr('id')) {
-                $(this.tables).removeClass("hidden");
-                $(this.tables).toggleClass("active");
-            };
+            if (tdText == tableName) {
+                tables[i].setAttribute("class", "active waypoint-times-table table-responsive table table-hover");
+            }
         }
     });
 
     publicRouteSelector.on("click", function (event) {
-        console.log("buttons work");
-        if (isChecked) {
-            for (var i = 0; i < billingAddress.length; i++) {
-                shippingAddress[i + 1].value = billingAddress[i].value;
+
+        var tdText = $(this).html();
+        tdText = tdText.trim();
+
+        for (var i = 0; i < tables.length; i++) {
+            tables[i].setAttribute("class", "hidden waypoint-times-table table-responsive table table-hover");
+        }
+        for (var i = 0; i < tables.length; i++) {
+            var tableName = tables[i].getAttribute("id");
+
+            if (tdText == tableName) {
+                tables[i].setAttribute("class", "active waypoint-times-table table-responsive table table-hover");
             }
-            console.log("ShippingSameButtonWorks");
         }
     });
 

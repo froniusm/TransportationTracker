@@ -69,6 +69,30 @@ namespace Capstone.Web.Controllers
             // Add route name to session
             Session["newRouteName"] = r.Name;
 
+            return RedirectToAction("CreateRouteWaypoints", "Routes");
+        }
+
+        [AuthorizeRoles("Admin")]
+        public ActionResult CreateRouteWaypoints()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AuthorizeRoles("Admin")]
+        [ValidateAntiForgeryToken()]
+        public ActionResult CreateRouteWaypoints(WaypointViewModel w)
+        {
+            w.name = (string)Session["newRouteName"];
+            if (w.name == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                // Add to database
+                UserManager m = new UserManager();
+            }
             return RedirectToAction("Index", "Home");
         }
     }

@@ -1,5 +1,5 @@
 ﻿@using Capstone.Web.Models.ViewModel;
-@model UserRoutesView
+@model WaypointViewModel
 
 
 @{
@@ -9,22 +9,38 @@
 
 <h2>Route Waypoints</h2>
 
-@*@using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
+@using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
 {
-    <table class="table-responsive" id="outer-table">
+    @Html.AntiForgeryToken()
+    for (int i = 0; i < 5; i++)
+    {
         <tr>
-            <td>
-                <table class="table-responsive" id="inner-table">
-                    <tr>
-                        <td>
-                            @Html.Label("Waypoint")
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-
-            </td>
+            <td>Waypoint @i Intersection</td>
+            <td>@Html.TextBoxFor(m => m.Waypoints[i].Intersection, new { @class = "form-control" })</td>
+            <td>Longitude</td>
+            <td>@Html.TextBoxFor(m => m.Waypoints[i].Longitude, new { @class = "form-control" }) </td>
+            <td>Latitude</td>
+            <td>@Html.TextBoxFor(m => m.Waypoints[i].Latitude, new { @class = "form-control" }) </td>
         </tr>
-    </table>
-}*@
+    }
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+@*@using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
+    {
+        <table class="table-responsive" id="outer-table">
+            <tr>
+                <td>
+                    <table class="table-responsive" id="inner-table">
+                        <tr>
+                            <td>
+                                @Html.Label("Waypoint")
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
+    }*@

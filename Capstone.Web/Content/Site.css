@@ -39,18 +39,38 @@ footer {
 
 
 /****** ViewRoutes *******/
+#view-routes-container {
+    display: inline-flex;
+    width: 100%;
+}
 
 #route-selector {
-    display: inline-flex;
+    display: block;
+    width: 20%;
+}
+
+#private-routes {
+    border: 1px solid black;
+}
+
+#public-routes {
+    border: 1px solid black;
 }
 
 #route-details {
     display: inline-flex;
     border: 1px solid black;
+    width : 70%;
 }
 
-    #route-details td {
+    #route-details table {
+        position: absolute;
+        width: 100%;
+    }
+
+    #route-details table tr {
         text-align: center;
+        width: 1%;
     }
 
 #waypoint-times-table {

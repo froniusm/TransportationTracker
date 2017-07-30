@@ -2,49 +2,78 @@
 
 @model UserRoutesView
 
-<div id="route-selector">
 
-    <table id="private-routes"></table>
+<div id="view-routes-container">
+    <div id="route-selector">
 
-    <table id="public-routes">
-        @foreach (var item in Model.AllRoutes)
+        <table id="private-routes" class="table table-hover">
+            @foreach (var item in Model.AllRoutes)
             {
-            <tr>
-                <td>
-                    @item.Key.Name
-                </td>               
-            </tr>
-        }
-    </table>
-
-</div>
-
-<div id="route-details">
-    @foreach (var route in Model.AllRoutes)
-    {
-        <table id="waypoint-times-table" class="table table-hover">
-            <tr>
-                <td id="route-details-title" colspan= @route.Value.Count>
-                    @route.Key.Name
-                </td>
-            </tr>
-            <tr>
-                @foreach (var waypoint in route.Value)
+                if (item.Key.IsPrivate)
                 {
-                    <td>@waypoint.Waypoint.Intersection</td>
+                    <tr>
+                        <td>
+                            @item.Key.Name
+                        </td>
+                    </tr>
                 }
-            </tr>
-
-            @for (int i = 0; i < route.Value[0].Times.Count; i++)
-            {
-                <tr>
-                    @foreach (var waypoint in route.Value)
-                    {
-                        <td>@waypoint.Times[i].ETA</td>
-                    }
-                </tr>
             }
         </table>
-    }
 
+        <table id="public-routes" class="table table-hover">
+            @foreach (var item in Model.AllRoutes)
+            {
+                if (!item.Key.IsPrivate)
+                {
+                    <tr>
+                        <td>
+                            @item.Key.Name
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+    </div>
+
+    <div id="route-details" class="container-fluid">
+        @{int indexTracker = 0;}
+        @{string display = "";}
+        @foreach (var route in Model.AllRoutes)
+        {
+            { indexTracker = indexTracker + 1; }
+            if (indexTracker == 1)
+            {
+                { display = "active"; }
+            }
+            else
+            {
+                { display = "hidden"; }
+            }
+                <table id="waypoint-times-table" class="table table-hover @display" style="z-index: @indexTracker;">
+                    <tr>
+                        <td id="route-details-title" colspan=@route.Value.Count>
+                            @route.Key.Name
+                        </td>
+                    </tr>
+                    <tr>
+                        @foreach (var waypoint in route.Value)
+                {
+                            <td>@waypoint.Waypoint.Intersection</td>
+                        }
+                    </tr>
+
+                    @for (int i = 0; i < route.Value[0].Times.Count; i++)
+                {
+                        <tr>
+                            @foreach (var waypoint in route.Value)
+                    {
+                                <td>@waypoint.Times[i].ETA</td>
+                            }
+                        </tr>
+                    }
+                </table>
+        }
+
+    </div>
 </div>

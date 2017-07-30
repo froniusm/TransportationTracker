@@ -85,8 +85,14 @@ namespace Capstone.Web.Models.ViewModel
 
     public class WaypointViewModel
     {
+<<<<<<< HEAD
         public List<Waypoint> Waypoints;
         public string name;
     }
 
+=======
+        public List<Waypoint> Waypoints { get; set; }
+        public string RouteName { get; set; }
+    }
+>>>>>>> 9e6570ed69a1dd909ecbb8badf955be96903536b
 }

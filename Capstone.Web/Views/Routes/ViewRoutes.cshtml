@@ -4,15 +4,20 @@
 
 
 <div id="view-routes-container">
-    <div id="route-selector">
 
+    <div id="route-selector">
         <table id="private-routes" class="table table-hover">
+            @*<tr>
+                <td>Private Routes</td> Im leaving this commented out because i need to think of
+                                        a better way to title the tables so that js events dont apply
+                                        to the title rows
+            </tr>*@
             @foreach (var item in Model.AllRoutes)
             {
                 if (item.Key.IsPrivate)
                 {
                     <tr>
-                        <td>
+                        <td id="TEST" class="private-route">
                             @item.Key.Name
                         </td>
                     </tr>
@@ -21,22 +26,26 @@
         </table>
 
         <table id="public-routes" class="table table-hover">
+            @*<tr>
+            <td>Public Routes</td>  Im leaving this commented out because i need to think of
+                                    a better way to title the tables so that js events dont apply
+                                    to the title rows
+            </tr>*@
             @foreach (var item in Model.AllRoutes)
             {
                 if (!item.Key.IsPrivate)
                 {
                     <tr>
-                        <td>
+                        <td class="public-route">
                             @item.Key.Name
                         </td>
                     </tr>
                 }
             }
         </table>
-
     </div>
 
-    <div id="route-details" class="container-fluid">
+    <div id="route-details">
         @{int indexTracker = 0;}
         @{string display = "";}
         @foreach (var route in Model.AllRoutes)
@@ -50,7 +59,7 @@
             {
                 { display = "hidden"; }
             }
-                <table id="waypoint-times-table" class="table table-hover @display" style="z-index: @indexTracker;">
+                <table id="@route.Key.Name" class="waypoint-times-table table-responsive table table-hover @display" style="z-index: @indexTracker;">
                     <tr>
                         <td id="route-details-title" colspan=@route.Value.Count>
                             @route.Key.Name
@@ -58,13 +67,13 @@
                     </tr>
                     <tr>
                         @foreach (var waypoint in route.Value)
-                {
+                        {
                             <td>@waypoint.Waypoint.Intersection</td>
                         }
                     </tr>
 
                     @for (int i = 0; i < route.Value[0].Times.Count; i++)
-                {
+                    {
                         <tr>
                             @foreach (var waypoint in route.Value)
                     {

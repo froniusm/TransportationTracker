@@ -70,6 +70,8 @@ namespace Capstone.Web.Controllers
             Session["newRouteName"] = r.Name;
 
             return RedirectToAction("CreateRouteWaypoints", "Routes");
+
+
         }
 
         [AuthorizeRoles("Admin")]

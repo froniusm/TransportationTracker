@@ -15,13 +15,41 @@ namespace Capstone.Web.DAL
 
         public WaypointDAL(string connectionString)
         {
-            string sub = connectionString.Substring(172);
-            /* This substrings the connectionString to remove all of Entity Framework's garbage and nonsense.  
-            Entity framework generates a connectionstring that Ninject can't recognize, so we substringed out anything except for...
-             data source=e23b13d1-adfa-4117-9ccf-a7bc00f3296d.sqlserver.sequelizer.com;initial catalog=dbe23b13d1adfa41179ccfa7bc00f3296d;persist security info=True;user id=gkrnlqmlretldcpq;password=me7tqdUNE55Wwqgr5QnAWYeborqFbARCBNMSYfukMdaFQPdzdBFzZiZua5f8VnLd;
-              */
-            sub = sub.Substring(0, 250);
-            this.connectionString = sub;
+            string[] splitConnectionStrings = connectionString.Split(';');
+            string dataSource = "";
+            string initialCatalog = "";
+            string persistSecurity = "";
+            string userId = "";
+            string password = "";
+
+            //This finds all of the information ninject needs for dependency injection and trims all the added
+            //information that entity framework inserts into the connectionstring
+            foreach (var splitString in splitConnectionStrings)
+            {
+                if (splitString.Contains("data source"))
+                {
+                    string data = splitString.Substring(28);
+                    dataSource = data;
+                }
+                if (splitString.Contains("initial catalog"))
+                {
+                    initialCatalog = splitString;
+                }
+                if (splitString.Contains("persist security"))
+                {
+                    persistSecurity = splitString;
+                }
+                if (splitString.Contains("user id"))
+                {
+                    userId = splitString;
+                }
+                if (splitString.Contains("password"))
+                {
+                    password = splitString;
+                }
+            }
+            
+            this.connectionString = dataSource + initialCatalog + persistSecurity + userId + password;
         }
 
         public UserRoutesView GetAllRoutes()

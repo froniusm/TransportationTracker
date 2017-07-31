@@ -28,19 +28,18 @@ namespace Capstone.Web.Controllers
 
         public ActionResult ViewRoutes()
         {
-            UserRoutesView model = new UserRoutesView();
-            model= DAL.GetAllRoutes();
-            return View("ViewRoutes", model);
+            UserRoutesView urv = GetActiveUserRoutesView();
+            //model= DAL.GetAllRoutes();
+            return View("ViewRoutes", urv);
         }
 
         [AuthorizeRoles("Admin")]
         public ActionResult AdminViewRoutes()
         {
-            UserRoutesView model = new UserRoutesView();
-            UserManager um = new UserManager();
+            UserRoutesView urv = GetActiveUserRoutesView();
             //model.AllRoutes = um.GetAllRoutes();
 
-            return View("AdminViewRoutes", model);
+            return View("AdminViewRoutes", urv);
         }
 
         [AuthorizeRoles("Admin")]
@@ -62,19 +61,15 @@ namespace Capstone.Web.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult CreateRoute(RouteViewModel r)
         {
-            // Add to database here
-            UserManager um = new UserManager();
-            um.AddNewRoute(r);
 
             // Add route name to session
-            Session["newRouteName"] = r.Name;
-
             Route route = new Route();
             route.Name = r.Name;
             route.Day = r.Day;
             route.IsPrivate = r.IsPrivate;
+            Session["currentRoute"] = route;
 
-            UserRoutesView userRoutesView = new UserRoutesView();
+            UserRoutesView userRoutesView = GetActiveUserRoutesView();
             List<WaypointTimeModel> waypointTimeModel = new List<WaypointTimeModel>();
             userRoutesView.AllRoutes[route] = waypointTimeModel;
 
@@ -82,18 +77,20 @@ namespace Capstone.Web.Controllers
         }
 
         [AuthorizeRoles("Admin")]
+        [ActionName("CreateRouteWaypoints"), HttpGet]
         public ActionResult CreateRouteWaypoints()
         {
             return View();
         }
 
-        [HttpPost]
+
         [AuthorizeRoles("Admin")]
         [ValidateAntiForgeryToken()]
-        public ActionResult CreateRouteWaypoints(WaypointViewModel w)
+        [ActionName("CreateRouteWaypoints"), HttpPost]
+        public ActionResult CreateRouteWaypointsPost(RouteViewModel rvm)
         {
-            w.name = (string)Session["newRouteName"];
-            if (w.name == null)
+            Route currentRoute = (Route)Session["currentRoute"];
+            if (currentRoute.Name == null)
             {
                 return HttpNotFound();
             }
@@ -103,6 +100,19 @@ namespace Capstone.Web.Controllers
                 UserManager m = new UserManager();
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        // Returns the UserRoutesView. If there isn't one, then one is created.
+        private UserRoutesView GetActiveUserRoutesView()
+        {
+            if (Session["UserRoutesView"] == null)
+            {
+                // Populate UserRoutesView (Route, Waypoints) with EF
+                UserRoutesView usv = DAL.GetAllRoutes(); // Populate last section of schedules With DAL
+                Session["UserRoutesView"] = usv;
+            }
+
+            return (UserRoutesView)Session["UserRoutesView"];
         }
     }
 }

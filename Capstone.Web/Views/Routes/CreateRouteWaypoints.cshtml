@@ -1,5 +1,5 @@
 ﻿@using Capstone.Web.Models.ViewModel;
-@model WaypointViewModel
+@model UserRoutesView
 
 
 @{
@@ -9,68 +9,32 @@
 
 <h2>Route Waypoints</h2>
 
-@using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
+@*@using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    for (int i = 0; i < 5; i++)
-    {
-        <tr>
-            <td>Waypoint @i Intersection</td>
-            <td>@Html.TextBoxFor(m => m.Waypoints[i].Intersection, new { @class = "form-control" })</td>
-            <td>Longitude</td>
-            <td>@Html.TextBoxFor(m => m.Waypoints[i].Longitude, new { @class = "form-control" }) </td>
-            <td>Latitude</td>
-            <td>@Html.TextBoxFor(m => m.Waypoints[i].Latitude, new { @class = "form-control" }) </td>
-        </tr>
-    }
-    <button type="submit" class="btn btn-primary">Submit</button>
-}
-@*@using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
-    {
-        <table class="table-responsive" id="outer-table">
+        <table class="col-sm-6">
             <tr>
-                <td>
-                    <table class="table-responsive" id="inner-table">
-                        <tr>
-                            <td>
-                                @Html.Label("Waypoint")
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-
-                </td>
+                <td>Waypoint @i Intersection</td>
+                <td>@Html.TextBoxFor(m => m.Waypoints.Intersection, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td>Longitude</td>
+                <td>@Html.TextBoxFor(m => m.Waypoints[i].Longitude, new { @class = "form-control" }) </td>
+            </tr>
+            <tr>
+                <td>Latitude</td>
+                <td>@Html.TextBoxFor(m => m.Waypoints[i].Latitude, new { @class = "form-control" }) </td>
             </tr>
         </table>
-    }*@
-    <table class="table-responsive" id="outer-table">
-        <tr>
-            <td>
-                <table class="table-responsive" id="inner-table">
-                    <tr>
-                        <td>
-                            @Html.Label("Waypoint")
-                            @*@Html.TextBoxFor(m => m.)*@
-                        </td>
-                        <td>
-                            @Html.Label("Latitude")
-                            @*@Html.TextBoxFor(m => m.)*@
-                        </td>
-                        <td>
-                            @Html.Label("Longitude")
-                            @*@Html.TextBoxFor(m => m.)*@
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <div id="map" style="width:100%;height:500px;"></div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}*@
+    
+                <div class="col-sm-6" id="map" style="width:50%;height:500px;"></div>
                 <script>
-                    function myMap() {
+                    function initMap() {
                         var mapCanvas = document.getElementById("map");
                         var myCenter = new google.maps.LatLng(41.418692, -81.724998);
-                        var mapOptions = { center: myCenter, zoom: 5 };
+                        var mapOptions = { center: myCenter, zoom: 10 };
                         var map = new google.maps.Map(mapCanvas, mapOptions);
                         google.maps.event.addListener(map, 'click', function (event) {
                             placeMarker(map, event.latLng);
@@ -87,9 +51,7 @@
                         infowindow.open(map, marker);
                     }
                 </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=transporttracker-175216&callback=myMap"></script>
-            </td>
-        </tr>
-    </table>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y_tXi-uq2evnvcZBtvTtR6hIRlk01B8&callback=initMap"
+                        type="text/javascript"></script>
 }
 

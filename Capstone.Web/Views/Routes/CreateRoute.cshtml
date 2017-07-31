@@ -9,29 +9,6 @@
 <h2>Routes</h2>
 
 <h3>All Existing Routes:</h3>
-@foreach (string s in (List<string>)TempData["allRouteNames"])
-{
-    <p>@s</p>
-}
-<br />
-<h3 class="container-fluid">Add Your New Route Below: </h3>
-
-@Html.ValidationSummary()
-@using (Html.BeginForm("CreateRoute", "Routes", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div class="form-group">
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Add a route" })
-        @Html.ValidationMessageFor(m => m.Name)
-    </div>
-    <div class="form-group">
-        @Html.Label("Day", "Day of the week")
-        @Html.DropDownListFor(m => m.Day, RouteViewModel.Days())
-    </div>
-    <div class="form-group">
-        @Html.Label("IsPrivate", "Private Route")
-        @Html.CheckBoxFor(m => m.IsPrivate)
-    </div>
     @* <table class="table-responsive table-striped table-bordered">
              @foreach (var route in Model.AllRoutes)
             {

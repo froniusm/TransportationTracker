@@ -69,9 +69,16 @@ namespace Capstone.Web.Controllers
             // Add route name to session
             Session["newRouteName"] = r.Name;
 
-            return RedirectToAction("CreateRouteWaypoints", "Routes");
+            Route route = new Route();
+            route.Name = r.Name;
+            route.Day = r.Day;
+            route.IsPrivate = r.IsPrivate;
 
+            UserRoutesView userRoutesView = new UserRoutesView();
+            List<WaypointTimeModel> waypointTimeModel = new List<WaypointTimeModel>();
+            userRoutesView.AllRoutes[route] = waypointTimeModel;
 
+            return RedirectToAction("CreateRouteWaypoints", userRoutesView);
         }
 
         [AuthorizeRoles("Admin")]

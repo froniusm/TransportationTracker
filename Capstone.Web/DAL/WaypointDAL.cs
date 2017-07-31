@@ -47,8 +47,7 @@ namespace Capstone.Web.DAL
                 {
                     password = splitString;
                 }
-            }
-            
+            }           
             this.connectionString = dataSource + initialCatalog + persistSecurity + userId + password;
         }
 

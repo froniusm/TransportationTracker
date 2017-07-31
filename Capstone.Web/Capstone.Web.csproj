@@ -227,6 +227,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\SignIn.GIF" />
     <Content Include="images\SignIn.JPG" />
     <Content Include="images\ViewRoutes.JPG" />
     <Content Include="images\WCTsignUpToday.gif" />

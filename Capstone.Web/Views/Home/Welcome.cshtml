@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Hi <b>@Context.User.Identity.Name</b>Welcome to the Transportation Tracker!</h2>
+<h2>Hi <b>@Context.User.Identity.Name</b>
+    <br />Welcome to the Transportation Tracker!</h2>
+<br /><h3>You can edit useres here:</h3>
+<br /><h3>You can add routes here:</h3>
+<br />
+<h3>You can edit routes here:</h3>
+<br />
+<br />
 
 @Html.ActionLink("Signout", "SignOut", "Account")

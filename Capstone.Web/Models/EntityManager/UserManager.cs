@@ -93,7 +93,7 @@ namespace Capstone.Web.Models.EntityManager
                 else
                 {
                     return hashSalt;
-                }            
+                }
             }
         }
         //Only allows administrator to access the maintenance page
@@ -118,7 +118,7 @@ namespace Capstone.Web.Models.EntityManager
                 return false;
             }
         }
-        
+
         public string GetUserRole(string loginName)
         {
             using (TransportationDBEntities db = new TransportationDBEntities())
@@ -127,7 +127,7 @@ namespace Capstone.Web.Models.EntityManager
                 return role;
             }
         }
-        
+
         public List<Route> GetPublicRoutes()
         {
             List<Route> routes = new List<Route>();
@@ -176,7 +176,7 @@ namespace Capstone.Web.Models.EntityManager
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
                 Route r = new Route();
-            
+
                 r.Day = model.Day;
                 r.Name = model.Name;
                 r.IsPrivate = model.IsPrivate;
@@ -191,6 +191,26 @@ namespace Capstone.Web.Models.EntityManager
                     Console.WriteLine(ex.Message);
                 }
             }
+        }
+
+        private int GetUserID(string loginName) // NOT FINISHED YET
+        {
+            int userID = 0;
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                userID = db.SYSUsers.Where(o => o.LoginName.Equals(loginName)).First().SYSUserID;
+            }
+            return userID;
+        }
+
+        private int GetRoleID(string roleName)
+        {
+            int roleID = 0;
+            using (TransportationDBEntities db = new TransportationDBEntities())
+            {
+                roleID = db.LOOKUPRoles.First(m => m.RoleName == roleName).LOOKUPRoleID;
+            }
+            return roleID;
         }
     }
 }

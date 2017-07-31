@@ -1,5 +1,5 @@
 ﻿@using Capstone.Web.Models.ViewModel;
-@model RouteViewModel
+@model Route
 
 @{
     ViewBag.Title = "CreateRoute";
@@ -11,7 +11,7 @@
 <h3>All Existing Routes:</h3>
 @foreach (string s in (List<string>)TempData["allRouteNames"])
 {
-    <p class="glyphicon-exclamation-sign">@s</p>
+    <p>@s</p>
 }
 <br />
 <h3 class="container-fluid">Add Your New Route Below: </h3>

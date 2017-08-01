@@ -66,6 +66,7 @@ namespace Capstone.Web.Controllers
             route.Day = r.Day;
             route.IsPrivate = r.IsPrivate;
             Session["currentRoute"] = route;
+            Session["currentRouteName"] = route.Name;
 
             UserRoutesView userRoutesView = GetActiveUserRoutesView();
             List<WaypointTimeModel> waypointTimeModel = new List<WaypointTimeModel>();
@@ -97,6 +98,23 @@ namespace Capstone.Web.Controllers
             WaypointDAL dal = new WaypointDAL();
             dal.CreateNewRoute(currentRoute, vm.Waypoints);
 
+            return RedirectToAction("CreateRouteSchedules", "Routes");
+        }
+
+        [AuthorizeRoles("Admin")]
+        public ActionResult CreateRouteSchedules()
+        {
+            return View();
+        }
+
+        [AuthorizeRoles("Admin")]
+        [ValidateAntiForgeryToken()]
+        [HttpPost]
+        public ActionResult CreateRouteSchedules(AddWaypointsViewModel vm)
+        {
+            //Add to database
+
+            //Redirect to home or success page
             return RedirectToAction("Index", "Home");
         }
 

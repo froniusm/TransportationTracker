@@ -1,0 +1,16 @@
+﻿@using Capstone.Web.Models.ViewModel;
+
+@{
+    ViewBag.Title = "CreateRouteSchedules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table-responsive table">
+    <thead>
+        @if (Session["currentRouteName"] != null)
+        {
+            <text>Schedule(s) for @Session["currentRouteName"]</text>
+        }
+    </thead>
+</table>

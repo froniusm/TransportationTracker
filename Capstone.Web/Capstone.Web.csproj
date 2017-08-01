@@ -337,6 +337,7 @@
     <Content Include="Views\Routes\AdminViewRoutes.cshtml" />
     <Content Include="Views\Routes\CreateRoute.cshtml" />
     <Content Include="Views\Routes\CreateRouteWaypoints.cshtml" />
+    <Content Include="Views\Routes\CreateRouteSchedules.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

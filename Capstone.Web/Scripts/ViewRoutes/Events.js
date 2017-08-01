@@ -39,5 +39,15 @@ $(document).ready(function () {
             }
         }
     });
+    //CreateRouteWaypoints
+
+    var waypoints = $(".waypoints")
+
+    waypoints.on("click", function (e) {
+        if (e.which == 9)
+        {
+            $(this).append()
+        }
+    });
 
 });

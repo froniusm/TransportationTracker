@@ -193,7 +193,7 @@ namespace Capstone.Web.Models.EntityManager
             }
         }
 
-        private int GetUserID(string loginName) // NOT FINISHED YET
+        private int GetUserID(string loginName)
         {
             int userID = 0;
             using (TransportationDBEntities db = new TransportationDBEntities())

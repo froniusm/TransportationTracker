@@ -87,10 +87,14 @@ namespace Capstone.Web.Controllers
         [AuthorizeRoles("Admin")]
         [ValidateAntiForgeryToken()]
         [ActionName("CreateRouteWaypoints"), HttpPost]
-        public ActionResult CreateRouteWaypointsPost(RouteViewModel rvm)
+        public ActionResult CreateRouteWaypoints(AddWaypointsViewModel vm)
         {
             Route currentRoute = (Route)Session["currentRoute"];
-            if (currentRoute.Name == null)
+            foreach(Waypoint w in vm.Waypoints)
+            {
+                w.Route = currentRoute;
+            }
+           /* if (currentRoute.Name == null)
             {
                 return HttpNotFound();
             }
@@ -98,7 +102,7 @@ namespace Capstone.Web.Controllers
             {
                 // Add to database
                 UserManager m = new UserManager();
-            }
+            } */
             return RedirectToAction("Index", "Home");
         }
 

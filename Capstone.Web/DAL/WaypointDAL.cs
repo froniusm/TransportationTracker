@@ -120,5 +120,12 @@ namespace Capstone.Web.DAL
             };
         }
 
+        public void CreateNewRoute(Route r, List<Waypoint> waypoints)
+        {
+            //Create the SQL commands
+
+            // Add to DB
+        }
+
     }
 }

@@ -160,12 +160,6 @@ namespace Capstone.Web.Models.EntityManager
                 foreach (Route route in routes)
                 {
                     route.Waypoints = db.Waypoints.Where(i => i.RouteID.Equals(route.RouteID)).ToList();
-                    foreach (Waypoint waypoint in route.Waypoints)
-                    {
-
-                        // WaypointSQLDAL dal = new WaypointSQLDAL(dbConnectionString);
-                        // waypoint.Schedules = dal.Return_Schedules_(Waypoint.ID);
-                    }
                 }
             }
             return routes;

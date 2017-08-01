@@ -8,6 +8,7 @@ using Capstone.Web.Models.DB;
 using Capstone.Web.Models.EntityManager;
 using Capstone.Web.Security;
 using Capstone.Web.DAL;
+using System.Configuration;
 
 namespace Capstone.Web.Controllers
 {
@@ -29,7 +30,6 @@ namespace Capstone.Web.Controllers
         public ActionResult ViewRoutes()
         {
             UserRoutesView urv = GetActiveUserRoutesView();
-            //model= DAL.GetAllRoutes();
             return View("ViewRoutes", urv);
         }
 
@@ -37,8 +37,6 @@ namespace Capstone.Web.Controllers
         public ActionResult AdminViewRoutes()
         {
             UserRoutesView urv = GetActiveUserRoutesView();
-            //model.AllRoutes = um.GetAllRoutes();
-
             return View("AdminViewRoutes", urv);
         }
 
@@ -90,19 +88,15 @@ namespace Capstone.Web.Controllers
         public ActionResult CreateRouteWaypoints(AddWaypointsViewModel vm)
         {
             Route currentRoute = (Route)Session["currentRoute"];
-            foreach(Waypoint w in vm.Waypoints)
+            if (currentRoute == null) 
             {
-                w.Route = currentRoute;
-            }
-           /* if (currentRoute.Name == null)
-            {
+                // Case where there was no route, which means that the user skipped the 1st step of creating a route
                 return HttpNotFound();
             }
-            else
-            {
-                // Add to database
-                UserManager m = new UserManager();
-            } */
+
+            WaypointDAL dal = new WaypointDAL();
+            dal.CreateNewRoute(currentRoute, vm.Waypoints);
+
             return RedirectToAction("Index", "Home");
         }
 

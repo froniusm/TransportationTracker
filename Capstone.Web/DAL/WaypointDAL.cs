@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using Capstone.Web.Models.DB;
 using Capstone.Web.Models.ViewModel;
+using System.Configuration;
 
 namespace Capstone.Web.DAL
 {
@@ -13,8 +14,13 @@ namespace Capstone.Web.DAL
         private string connectionString;
         private const string SQL_GetSchedules = "SELECT * FROM Schedules WHERE WaypointID = @waypointID;";
         private const string SQL_CreateNewRoute = "INSERT INTO Routes VALUES(@Name, @Day, @IsPrivate);";
-        private const string SQL_CreateNewWaypoints= "INSERT INTO Waypoints VALUES(@RouteID, @Intersection, @Longitude, @Latitude);";
+        private const string SQL_CreateNewWaypoints = "INSERT INTO Waypoints VALUES(@RouteID, @Intersection, @Longitude, @Latitude);";
         private const string SQL_GetRouteID = "SELECT RouteID FROM Routes WHERE Name = @Name;";
+
+        public WaypointDAL()
+        {
+            this.connectionString = ConfigurationManager.ConnectionStrings["TransportationDAL"].ConnectionString;
+        }
 
         public WaypointDAL(string connectionString)
         {
@@ -50,7 +56,7 @@ namespace Capstone.Web.DAL
                 {
                     password = splitString;
                 }
-            }           
+            }
             this.connectionString = dataSource + initialCatalog + persistSecurity + userId + password;
         }
 
@@ -62,7 +68,7 @@ namespace Capstone.Web.DAL
 
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
-                
+
                 List<Route> tempRouteList = new List<Route>();
                 tempRouteList = db.Routes.ToList();
                 foreach (Route route in tempRouteList)
@@ -138,14 +144,22 @@ namespace Capstone.Web.DAL
 
                     cmd.ExecuteNonQuery();
 
-                    cmd = new SqlCommand(SQL_CreateNewWaypoints, conn);
+                    foreach (Waypoint w in waypoints)
+                    {
+                        int routeID = GetRouteID(r);
+                        cmd = new SqlCommand(SQL_CreateNewWaypoints, conn);
+                        cmd.Parameters.AddWithValue("@RouteID", routeID);
+                        cmd.Parameters.AddWithValue("@Intersection", w.Intersection);
+                        cmd.Parameters.AddWithValue("@Longitude", w.Longitude);
+                        cmd.Parameters.AddWithValue("@Latitude", w.Latitude);
 
-                    cmd.Parameters.AddWithValue("@RouteID", waypoints[0].RouteID);
-                }                   
+                        cmd.ExecuteNonQuery();
+                    }
+
+                }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -160,18 +174,17 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(SQL_GetRouteID, conn);
-                    cmd.Parameters.AddWithValue("@RouteID", r.RouteID);
+                    cmd.Parameters.AddWithValue("@Name", r.Name);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         routeID = Convert.ToInt32(reader["RouteID"]);
                     }
-                    
-                }                 
+
+                }
             }
             catch (Exception)
             {
-
                 throw;
             }
             return routeID;

@@ -16,7 +16,9 @@ namespace Capstone.Web.DAL
         private const string SQL_CreateNewWaypoints = "INSERT INTO Waypoints VALUES(@RouteID, @Intersection, @Longitude, @Latitude);";
         private const string SQL_GetRouteID = "SELECT RouteID FROM Routes WHERE Name = @Name;";
         private const string SQL_GetWaypoints = "SELECT * FROM Waypoints WHERE RouteID = @RouteID";
-        private const string SQL_GetSchedules = "SELECT * FROM Schedules WHERE WaypointID = @waypointID;";
+        private const string SQL_GetSchedules = "SELECT * FROM Schedules WHERE WaypointID = @WaypointID;";
+        private const string SQL_GetWaypointID = "SELECT WaypointID FROM Waypoints WHERE Intersection = @Intersection;";
+        private const string SQL_CreateSchedule = "INSERT INTO Schedules VALUES(@Sequence, @ETA, @WaypointID);";
 
         public WaypointDAL()
         {
@@ -189,7 +191,30 @@ namespace Capstone.Web.DAL
             return waypoints;
         }
 
-        //public int GetWaypointID(string waypointName) // TODO for 8/1/17
+        public int GetWaypointID(string waypointName)
+        {
+            int waypointID = -1;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(SQL_GetWaypointID, conn);
+                    cmd.Parameters.AddWithValue("@Intersection", waypointName);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        waypointID = Convert.ToInt32(reader["WaypointID"]);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return waypointID;
+        }
 
         public Waypoint PopulateWaypointObject(SqlDataReader reader)
         {
@@ -204,6 +229,31 @@ namespace Capstone.Web.DAL
         }
 
         // public void CreateSchedules(List<Schedules>) TODO for 8/1/17  
+        public void CreateSchedules(List<Schedule> schedules)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    foreach (Schedule s in schedules)
+                    {
+                        SqlCommand cmd = new SqlCommand(SQL_CreateSchedule, conn);
+                        cmd.Parameters.AddWithValue("@Sequence", s.Sequence);
+                        cmd.Parameters.AddWithValue("@ETA", s.ETA);
+                        cmd.Parameters.AddWithValue("@WaypointID", s.WaypointID);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         // Schedules has the FK for waypointID within it
         public HashSet<Schedule> GetSchedules(int waypointID)
         {

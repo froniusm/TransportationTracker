@@ -98,16 +98,29 @@ namespace Capstone.Web.Controllers
             WaypointDAL dal = new WaypointDAL();
             dal.CreateNewRoute(currentRoute, vm.Waypoints);
 
-            return RedirectToAction("CreateRouteSchedules", "Routes", vm);
+            return RedirectToAction("CreateRouteSchedules", "Routes");
         }
 
         [AuthorizeRoles("Admin")]
-        public ActionResult CreateRouteSchedules(AddWaypointsViewModel vm)
+        public ActionResult CreateRouteSchedules()
         {
+            Route currentRoute = (Route)Session["currentRoute"];
+            if (currentRoute == null) 
+            {
+                // Case where there was no route, which means that the user skipped the 1st step of creating a route
+                return HttpNotFound();
+            }
+            WaypointDAL dal = new WaypointDAL();
+
+            int routeId = dal.GetRouteID(currentRoute.Name);
+            List<Waypoint> waypoints = new List<Waypoint>();
+            waypoints = dal.GetWaypoints(routeId);
+
             List<WaypointTimeModel> lwpt = new List<WaypointTimeModel>();
-            foreach (var waypoint in vm.Waypoints)
+            foreach (var waypoint in waypoints)
             {
                 WaypointTimeModel wpt = new WaypointTimeModel();
+                wpt.Times =dal.GetSchedules(waypoint.WaypointID);
                 wpt.Waypoint = waypoint;
                 lwpt.Add(wpt);
             }
@@ -118,12 +131,16 @@ namespace Capstone.Web.Controllers
         [AuthorizeRoles("Admin")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
-        public ActionResult CreateRouteSchedules(AddScheduleViewModel vm)
+        public ActionResult CreateRouteSchedules(List<WaypointTimeModel> wtm)
         {
             //Add to database
-
+            WaypointDAL dal = new WaypointDAL();
+            foreach (WaypointTimeModel item in wtm)
+            {
+                dal.CreateSchedules(item.Times);
+            }   
             //Redirect to home or success page
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CreateRouteSchedules", "Routes");
         }
 
         // Returns the UserRoutesView. If there isn't one, then one is created.

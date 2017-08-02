@@ -170,7 +170,7 @@ namespace Capstone.Web.DAL
             List<Waypoint> waypoints = new List<Waypoint>();
             try
             {
-                using (SqlConnection conn = new SqlConnection())
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(SQL_GetWaypoints, conn);
@@ -254,9 +254,9 @@ namespace Capstone.Web.DAL
         }
 
         // Schedules has the FK for waypointID within it
-        public HashSet<Schedule> GetSchedules(int waypointID)
+        public List<Schedule> GetSchedules(int waypointID)
         {
-            HashSet<Schedule> schedules = new HashSet<Schedule>();
+            List<Schedule> schedules = new List<Schedule>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))

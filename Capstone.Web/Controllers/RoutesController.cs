@@ -98,21 +98,16 @@ namespace Capstone.Web.Controllers
             WaypointDAL dal = new WaypointDAL();
             dal.CreateNewRoute(currentRoute, vm.Waypoints);
 
-            return RedirectToAction("CreateRouteSchedules", "Routes");
+            return RedirectToAction("CreateRouteSchedules", "Routes", new { name = currentRoute.Name });
         }
 
         [AuthorizeRoles("Admin")]
-        public ActionResult CreateRouteSchedules()
+        public ActionResult CreateRouteSchedules(string name)
         {
-            Route currentRoute = (Route)Session["currentRoute"];
-            if (currentRoute == null) 
-            {
-                // Case where there was no route, which means that the user skipped the 1st step of creating a route
-                return HttpNotFound();
-            }
+            
             WaypointDAL dal = new WaypointDAL();
 
-            int routeId = dal.GetRouteID(currentRoute.Name);
+            int routeId = dal.GetRouteID(name);
             List<Waypoint> waypoints = new List<Waypoint>();
             waypoints = dal.GetWaypoints(routeId);
 

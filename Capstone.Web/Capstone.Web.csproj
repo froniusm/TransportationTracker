@@ -312,6 +312,7 @@
       <DependentUpon>TransportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityManager\UserManager.cs" />
+    <Compile Include="Models\ViewModel\AddScheduleViewModel.cs" />
     <Compile Include="Models\ViewModel\AddWaypointsViewModel.cs" />
     <Compile Include="Models\ViewModel\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

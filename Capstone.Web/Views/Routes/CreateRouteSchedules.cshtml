@@ -1,16 +1,35 @@
 ﻿@using Capstone.Web.Models.ViewModel;
+@using Capstone.Web.Models.DB;
+@model AddScheduleViewModel
 
 @{
     ViewBag.Title = "CreateRouteSchedules";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<table class="table-responsive table">
-    <thead>
-        @if (Session["currentRouteName"] != null)
-        {
-            <text>Schedule(s) for @Session["currentRouteName"]</text>
-        }
-    </thead>
-</table>
+@using (Html.BeginForm("CreateRouteSchedules", "Routes", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table-responsive table">
+        <thead style="text-align: center;">
+            @if (Session["currentRouteName"] != null)
+            {
+                <text>Schedule for @Session["currentRouteName"]</text>
+            }
+        </thead>
+        <tr>
+            @foreach (KeyValuePair<Waypoint, List<Schedule>> kvp in Model.WaypointSchedules)
+            {
+                <th>@kvp.Key.Intersection</th>
+            }           
+        </tr>
+        <tr>
+            @foreach (KeyValuePair<Waypoint, List<Schedule>> kvp in Model.WaypointSchedules)
+            {
+                <td>
+                    @Html.TextBoxFor(m => m.WaypointSchedules.Values.)
+                </td>
+            }
+        </tr>
+    </table>
+}

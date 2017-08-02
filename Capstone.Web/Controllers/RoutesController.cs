@@ -98,19 +98,27 @@ namespace Capstone.Web.Controllers
             WaypointDAL dal = new WaypointDAL();
             dal.CreateNewRoute(currentRoute, vm.Waypoints);
 
-            return RedirectToAction("CreateRouteSchedules", "Routes");
+            return RedirectToAction("CreateRouteSchedules", "Routes", vm);
         }
 
         [AuthorizeRoles("Admin")]
-        public ActionResult CreateRouteSchedules()
+        public ActionResult CreateRouteSchedules(AddWaypointsViewModel vm)
         {
-            return View();
+            List<WaypointTimeModel> lwpt = new List<WaypointTimeModel>();
+            foreach (var waypoint in vm.Waypoints)
+            {
+                WaypointTimeModel wpt = new WaypointTimeModel();
+                wpt.Waypoint = waypoint;
+                lwpt.Add(wpt);
+            }
+            
+            return View(lwpt);
         }
 
         [AuthorizeRoles("Admin")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
-        public ActionResult CreateRouteSchedules(AddWaypointsViewModel vm)
+        public ActionResult CreateRouteSchedules(AddScheduleViewModel vm)
         {
             //Add to database
 

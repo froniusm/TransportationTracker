@@ -227,8 +227,7 @@ namespace Capstone.Web.DAL
                 Latitude = Convert.ToDecimal(reader["Latitude"])
             };
         }
-
-        // public void CreateSchedules(List<Schedules>) TODO for 8/1/17  
+ 
         public void CreateSchedules(List<Schedule> schedules)
         {
             try

@@ -7,22 +7,52 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("CreateRouteSchedules", "Routes", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <table class="table-responsive table">
-        <thead style="text-align: center;">
-            @if (Session["currentRouteName"] != null)
+<table class="table-responsive table">
+    <thead style="text-align: center;">
+        @if (Session["currentRouteName"] != null)
             {
-                <text>Schedule for @Session["currentRouteName"]</text>
-            }
-        </thead>
+            <text>Schedule for @Session["currentRouteName"]</text>
+        }
+    </thead>
+    <tr>
+        @foreach (WaypointTimeModel wtm in Model)
+            {
+            <th>@wtm.Waypoint.Intersection</th>
+        }
+    </tr>
+    @if (Model[0].Times.Count > 0)
+    {
+        for (int i = 0; i < Model[0].Times.Count; i++)
+        {
+            <tr>
+                @foreach  (WaypointTimeModel wtm in Model)
+                {
+                    <td>
+                        @wtm.Times[i].ETA
+                    </td>
+                }
+            </tr>
+        }
+    }
+    @using (Html.BeginForm("CreateRouteSchedules", "Routes", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
         <tr>
-            @foreach (WaypointTimeModel wtm in Model)
+            @for (int i = 0; i < Model.Count; i++)
             {
-                <th>@wtm.Waypoint.Intersection</th>
-            }
+                <td>
+                    @{ Schedule schedule = new Schedule(); }
+                    @{schedule.WaypointID = @Model[i].Waypoint.WaypointID; }
+                    @{Model[i].Times.Add(schedule); }
+
+                    @Html.TextBoxFor(m => m[i].Times[Model[i].Times.Count-1].ETA)
+                    @Html.HiddenFor(m => m[i].Times[Model[i].Times.Count - 1].WaypointID)
+                </td>
+            } 
+            <td>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </td>
         </tr>
-    </table>
-    <button type="submit" class="btn btn-primary">Add</button>
-}
+    }
+</table>
+

@@ -7,8 +7,8 @@
 
     <div id="route-selector">
         <table id="private-routes" class="table table-hover">
-            <tr>
-                <td>Private Routes</td>
+            <tr style="background-color: #96A3CD">
+                <td><b>Private Routes</b></td>
             </tr>
             @foreach (var item in Model.AllRoutes)
             {
@@ -24,8 +24,8 @@
         </table>
 
         <table id="public-routes" class="table table-hover">
-            <tr>
-                <td>Public Routes</td>
+            <tr style="background-color: #96A3CD">
+                <td><b>Public Routes</b></td>
             </tr>
             @foreach (var item in Model.AllRoutes)
             {
@@ -58,13 +58,13 @@
             <table id="@route.Key.Name" class="waypoint-times-table table-responsive table table-hover @display" style="z-index: @indexTracker;">
                 <tr>
                     <td id="route-details-title" colspan=@route.Value.Count>
-                        @route.Key.Name
+                        <b>@route.Key.Name</b>
                     </td>
                 </tr>
-                <tr>
+                <tr style="background-color: #96A3CD">
                     @foreach (var waypoint in route.Value)
                     {
-                        <td>@waypoint.Waypoint.Intersection</td>
+                        <td><b>@waypoint.Waypoint.Intersection</b></td>
                     }
                 </tr>
 

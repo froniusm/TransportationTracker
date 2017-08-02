@@ -89,7 +89,7 @@ namespace Capstone.Web.Controllers
         public ActionResult CreateRouteWaypoints(AddWaypointsViewModel vm)
         {
             Route currentRoute = (Route)Session["currentRoute"];
-            if (currentRoute == null) 
+            if (currentRoute == null)
             {
                 // Case where there was no route, which means that the user skipped the 1st step of creating a route
                 return HttpNotFound();
@@ -104,7 +104,7 @@ namespace Capstone.Web.Controllers
         [AuthorizeRoles("Admin")]
         public ActionResult CreateRouteSchedules(string name)
         {
-            
+
             WaypointDAL dal = new WaypointDAL();
 
             int routeId = dal.GetRouteID(name);
@@ -115,27 +115,24 @@ namespace Capstone.Web.Controllers
             foreach (var waypoint in waypoints)
             {
                 WaypointTimeModel wpt = new WaypointTimeModel();
-                wpt.Times =dal.GetSchedules(waypoint.WaypointID);
+                wpt.Times = dal.GetSchedules(waypoint.WaypointID);
                 wpt.Waypoint = waypoint;
                 lwpt.Add(wpt);
             }
-            
+
             return View(lwpt);
         }
 
         [AuthorizeRoles("Admin")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
-        public ActionResult CreateRouteSchedules(List<WaypointTimeModel> wtm)
+        public ActionResult CreateRouteSchedules(List<WaypointSchedule> newSchedule)
         {
             //Add to database
             WaypointDAL dal = new WaypointDAL();
-            foreach (WaypointTimeModel item in wtm)
-            {
-                dal.CreateSchedules(item.Times);
-            }   
+            dal.CreateSchedules(newSchedule);
             //Redirect to home or success page
-            return RedirectToAction("CreateRouteSchedules", "Routes");
+            return RedirectToAction("CreateRouteSchedules", "Routes", new { name = Session["currentRouteName"] });
         }
 
         // Returns the UserRoutesView. If there isn't one, then one is created.

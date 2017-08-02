@@ -11,5 +11,6 @@ namespace Capstone.Web.DAL
     {
         List<Schedule> GetSchedules(int waypointID);
         UserRoutesView GetAllRoutes();
+        void CreateSchedules(List<WaypointSchedule> schedules);
     }
 }

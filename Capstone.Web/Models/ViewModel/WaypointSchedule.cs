@@ -7,8 +7,9 @@ using Capstone.Web.Models.DB;
 
 namespace Capstone.Web.Models.ViewModel
 {
-    public class AddScheduleViewModel
+    public class WaypointSchedule
     {
-        public Dictionary<Waypoint, List<Schedule>> WaypointSchedules { get; set; }
+        public int WaypointId { get; set; }
+        public DateTime ETA { get; set; }
     }
 }

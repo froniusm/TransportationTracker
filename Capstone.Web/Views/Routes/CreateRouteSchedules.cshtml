@@ -41,12 +41,8 @@
             @for (int i = 0; i < Model.Count; i++)
             {
                 <td>
-                    @{ Schedule schedule = new Schedule(); }
-                    @{schedule.WaypointID = @Model[i].Waypoint.WaypointID; }
-                    @{Model[i].Times.Add(schedule); }
-
-                    @Html.TextBoxFor(m => m[i].Times[Model[i].Times.Count-1].ETA)
-                    @Html.HiddenFor(m => m[i].Times[Model[i].Times.Count - 1].WaypointID)
+                    @Html.TextBox($"[{i}].ETA", null, new { @type = "time" })
+                    @Html.Hidden($"[{i}].WaypointID", Model[i].Waypoint.WaypointID)
                 </td>
             } 
             <td>

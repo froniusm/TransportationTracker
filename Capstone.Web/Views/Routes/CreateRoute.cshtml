@@ -8,6 +8,7 @@
 
 <h2>Routes</h2>
 
+<<<<<<< HEAD
 
 <h3>All Existing Routes:</h3>
 @foreach (string s in (List<string>)TempData["allRouteNames"])
@@ -16,6 +17,9 @@
 }
 <br />
 <h3 class="container-fluid">Add Your New Route Below: </h3>
+=======
+<h3 @*class="container-fluid"*@ id="highlight">Add Your New Route Below: </h3>
+>>>>>>> f8ee72410a89f2b48c5fa0b1ff970b11de8df4f6
 
 @Html.ValidationSummary()
 @using (Html.BeginForm("CreateRoute", "Routes", FormMethod.Post))
@@ -35,3 +39,12 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 }
+<br />
+<h3 id="highlight">All Existing Routes:</h3>
+<ul style="column-count:4;">
+    @foreach (string s in (List<string>)TempData["allRouteNames"])
+    {
+        <p>@s</p>
+    }
+</ul>
+<br />

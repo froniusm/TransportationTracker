@@ -7,88 +7,92 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Route Waypoints</h2>
+<h2>
+     @if (Session["currentRouteName"] != null)
+            {
+        <text>@Session["currentRouteName"] Waypoints</text>
+    }
+</h2>
+<h4>Post pins on map to add route waypoints</h4>
 
 @using (Html.BeginForm("CreateRouteWaypoints", "Routes", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="col-sm-6">
-        <table id="waypoints-table"class="col-sm-6 table">
-        </table>
+        <table id="waypoints-table" class="col-sm-6 table"></table>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 }
-    
-                <div class="col-sm-6" id="map" style="width:50%;height:500px;"></div>
-                <script>
-                    var map;
-                    function initMap() {
-                        var mapCanvas = document.getElementById("map");
-                        var myCenter = new google.maps.LatLng(41.418692, -81.724998);
-                        var mapOptions = { center: myCenter, zoom: 10 };
-                        var geocoder = new google.maps.Geocoder();
-                        map = new google.maps.Map(mapCanvas, mapOptions);
-                        google.maps.event.addListener(map, 'click', function (event) {
-                            geocoder.geocode({
-                                'latLng': event.latLng
-                            }, function (results, status) {
-                                if (status == google.maps.GeocoderStatus.OK) {
-                                    if (results[0]) {
-                                        var address = (results[0].address_components[0].long_name + " " + results[0].address_components[1].long_name);
-                                        placeMarker(map, event.latLng, address);
-                                    }
-                                }
-                            });
-                        });
+
+<div class="col-sm-6" id="map" style="width:50%;height:500px;"></div>
+<script>
+    var map;
+    function initMap() {
+        var mapCanvas = document.getElementById("map");
+        var myCenter = new google.maps.LatLng(41.418692, -81.724998);
+        var mapOptions = { center: myCenter, zoom: 10 };
+        var geocoder = new google.maps.Geocoder();
+        map = new google.maps.Map(mapCanvas, mapOptions);
+        google.maps.event.addListener(map, 'click', function (event) {
+            geocoder.geocode({
+                'latLng': event.latLng
+            }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var address = (results[0].address_components[0].long_name + " " + results[0].address_components[1].long_name);
+                        placeMarker(map, event.latLng, address);
                     }
-                    function placeMarker(map, location, address) {
-                        var marker = new google.maps.Marker({
-                            position: location,
-                            map: map,
-                        });
-                        var existingRows = $("#waypoints-table").children().length;
-                        var rowToClone = $(`<tr data-lat=${location.lat()} data-lng=${location.lng()}>`);
-                        var waypoint = $("<td style='padding: 10px;'>");
-                        var intersection = $(`<input type='text' class='form-control' name='Waypoints[${existingRows}].Intersection' placeholder='intersection name' value='${address}'/>`);
-                        intersection.on("focus", addBlueMarker);
-                        var hiddenLatitude = $(`<input type='hidden' name='Waypoints[${existingRows}].Latitude' value='${location.lat()}'/>`);
-                        var hiddenLongitude = $(`<input type='hidden' name='Waypoints[${existingRows}].Longitude' value='${location.lng()}'/>`);
-                        var latitude = $("<td>").text(location.lat);
-                        var longitude = $("<td>").text(location.lng);
+                }
+            });
+        });
+    }
+    function placeMarker(map, location, address) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map,
+        });
+        var existingRows = $("#waypoints-table").children().length;
+        var rowToClone = $(`<tr data-lat=${location.lat()} data-lng=${location.lng()}>`);
+        var waypoint = $("<td style='padding: 10px;'>");
+        var intersection = $(`<input type='text' class='form-control' name='Waypoints[${existingRows}].Intersection' placeholder='intersection name' value='${address}'/>`);
+        intersection.on("focus", addBlueMarker);
+        var hiddenLatitude = $(`<input type='hidden' name='Waypoints[${existingRows}].Latitude' value='${location.lat()}'/>`);
+        var hiddenLongitude = $(`<input type='hidden' name='Waypoints[${existingRows}].Longitude' value='${location.lng()}'/>`);
+        var latitude = $("<td>").text(location.lat);
+        var longitude = $("<td>").text(location.lng);
 
 
 
-                        waypoint.append(intersection);
-                        waypoint.append(hiddenLatitude); //hidden values appended
-                        waypoint.append(hiddenLongitude);
-                        rowToClone.append(waypoint);
-                        //rowToClone.append(latitude);
-                        //rowToClone.append(longitude);
-                        $("#waypoints-table").append(rowToClone);
-                    }
+        waypoint.append(intersection);
+        waypoint.append(hiddenLatitude); //hidden values appended
+        waypoint.append(hiddenLongitude);
+        rowToClone.append(waypoint);
+        //rowToClone.append(latitude);
+        //rowToClone.append(longitude);
+        $("#waypoints-table").append(rowToClone);
+    }
 
-                    var waypointMarker = null;
-                    function addBlueMarker(event) {
-                        var latitude = parseFloat($(this).parent().parent().attr("data-lat"));
-                        var longitude = parseFloat($(this).parent().parent().attr("data-lng"));
+    var waypointMarker = null;
+    function addBlueMarker(event) {
+        var latitude = parseFloat($(this).parent().parent().attr("data-lat"));
+        var longitude = parseFloat($(this).parent().parent().attr("data-lng"));
 
-                        if (waypointMarker != null)
-                        {
-                            waypointMarker.setMap(null);
-                        }
+        if (waypointMarker != null) {
+            waypointMarker.setMap(null);
+        }
 
-                        waypointMarker = new google.maps.Marker({
-                            position: {
-                                lat: latitude,
-                                lng: longitude,
-                            },
-                            map: map,
-                            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-                        });                      
-                    }
+        waypointMarker = new google.maps.Marker({
+            position: {
+                lat: latitude,
+                lng: longitude,
+            },
+            map: map,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        });
+    }
 
-                </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y_tXi-uq2evnvcZBtvTtR6hIRlk01B8&callback=initMap"
-                        type="text/javascript"></script>
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y_tXi-uq2evnvcZBtvTtR6hIRlk01B8&callback=initMap"
+        type="text/javascript"></script>
 
 

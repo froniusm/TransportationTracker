@@ -71,7 +71,7 @@ namespace Capstone.Web.Controllers
                         string role = UM.GetUserRole(ULV.LoginName);
                         Session["userRole"] = role;
                         Session["userName"] = ULV.LoginName;
-                        return RedirectToAction("Welcome", "Home", ULV);
+                        return RedirectToAction("Welcome", "Home", ULV.LoginName);
                     }
                     else
                     {

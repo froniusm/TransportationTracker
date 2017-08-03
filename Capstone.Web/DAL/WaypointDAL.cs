@@ -18,7 +18,7 @@ namespace Capstone.Web.DAL
         private const string SQL_GetWaypoints = "SELECT * FROM Waypoints WHERE RouteID = @RouteID";
         private const string SQL_GetSchedules = "SELECT * FROM Schedules WHERE WaypointID = @WaypointID;";
         private const string SQL_GetWaypointID = "SELECT WaypointID FROM Waypoints WHERE Intersection = @Intersection;";
-        private const string SQL_CreateSchedule = "INSERT INTO Schedules VALUES(@ETA, @WaypointID);";
+        private const string SQL_CreateSchedule = "INSERT INTO Schedules VALUES(@Sequence, @ETA, @WaypointID);";
 
         public WaypointDAL()
         {
@@ -238,10 +238,15 @@ namespace Capstone.Web.DAL
 
                     foreach (WaypointSchedule wptm in schedules)
                     {
-                        DateTime newtime = Convert.ToDateTime(wptm);
-                        newtime = newtime;
+                        int sequence = 0;
+                        sequence++;
+
+                        DateTime myDateTime = DateTime.Parse(wptm.ETA.ToString());
+                        string sqlFormattedDate = myDateTime.ToString("HH:mm:ss");
+
                         SqlCommand cmd = new SqlCommand(SQL_CreateSchedule, conn);
-                        cmd.Parameters.AddWithValue("@ETA", wptm.ETA);
+                        cmd.Parameters.AddWithValue("@Sequence", sequence);
+                        cmd.Parameters.AddWithValue("@ETA", sqlFormattedDate);
                         cmd.Parameters.AddWithValue("@WaypointID", wptm.WaypointId);
 
                         cmd.ExecuteNonQuery();
@@ -250,6 +255,7 @@ namespace Capstone.Web.DAL
             }
             catch (Exception)
             {
+
                 throw;
             }
         }

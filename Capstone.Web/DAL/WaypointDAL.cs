@@ -73,7 +73,7 @@ namespace Capstone.Web.DAL
             {
 
                 List<Route> tempRouteList = new List<Route>();
-                tempRouteList = db.Routes.ToList();
+                tempRouteList = db.Routes.OrderBy(x => x.Name).ToList();
                 foreach (Route route in tempRouteList)
                 {
                     List<WaypointTimeModel> waypointTimesList = new List<WaypointTimeModel>();
@@ -88,6 +88,7 @@ namespace Capstone.Web.DAL
                         waypointTimesList.Add(waypointTimes);
                     }
                     allRoutes[route] = waypointTimesList;
+                    //TempData["allRouteNames"] = allRouteNames.OrderBy(x => x).ToList();
                 }
             }
             return routes;

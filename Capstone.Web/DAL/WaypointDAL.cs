@@ -124,9 +124,9 @@ namespace Capstone.Web.DAL
             /* This uses GetRouteID to determine if the route's name is already taken.
             If the name's already taken, then GetRouteID(routeName) returns an int. If not, it returns null.
             This method uses takes advantage of that fact. */
-
             int? existingRouteID = GetRouteID(routeName);
-            return (existingRouteID != null);
+            return (existingRouteID != null && existingRouteID != -1);
+            // Apparently GetRouteID returns -1 if the route doesn't exist
         }
 
         // CreateNewRoute() creates the route AND its waypoints

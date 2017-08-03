@@ -15,22 +15,22 @@ namespace Capstone.Web.Models.ViewModel
         public int LOOKUPRoleID { get; set; }
         public string RoleName { get; set; }
         public string Salt { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "User Name")]
         public string LoginName { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "Password")]
         public string Password { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "This field is required.")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 

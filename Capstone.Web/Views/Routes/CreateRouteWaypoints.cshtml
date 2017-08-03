@@ -60,13 +60,13 @@
         var hiddenLongitude = $(`<input type='hidden' name='Waypoints[${existingRows}].Longitude' value='${location.lng()}'/>`);
         var latitude = $("<td>").text(location.lat);
         var longitude = $("<td>").text(location.lng);
-
-
+        var deleteButton = $("<td><input id = 'deleteButton' type= 'button' value= 'X'></td>");
 
         waypoint.append(intersection);
         waypoint.append(hiddenLatitude); //hidden values appended
         waypoint.append(hiddenLongitude);
         rowToClone.append(waypoint);
+        rowToClone.append(deleteButton);
         //rowToClone.append(latitude);
         //rowToClone.append(longitude);
         $("#waypoints-table").append(rowToClone);
@@ -90,6 +90,11 @@
             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
     }
+
+    $('#waypoints-table').on('click', "#deleteButton", function () {
+        $(this).closest('tr').remove();
+    });
+
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y_tXi-uq2evnvcZBtvTtR6hIRlk01B8&callback=initMap"

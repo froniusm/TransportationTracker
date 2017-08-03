@@ -7,16 +7,8 @@
 }
 
 <h2>Routes</h2>
-
-<h3>All Existing Routes:</h3>
-@foreach (string s in (List<string>)TempData["allRouteNames"])
-{
-    <p>@s</p>
-}
 <br />
-<h3 class="container-fluid">Add Your New Route Below: </h3>
 <h3 @*class="container-fluid"*@ id="highlight">Add Your New Route Below: </h3>
-S
 
 @Html.ValidationSummary()
 @using (Html.BeginForm("CreateRoute", "Routes", FormMethod.Post))

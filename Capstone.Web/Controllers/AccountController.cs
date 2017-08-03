@@ -21,6 +21,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult SignUp(RegistrationModel USV)
         {
+            const int newUserID = 2; // In the Database under dbo.LOOKUPROLE, role 1 is for users
 
             if (ModelState.IsValid)
             {
@@ -31,6 +32,7 @@ namespace Capstone.Web.Controllers
                     string hashedPassword = hasher.HashPassword(USV.Password);
                     USV.Salt = hasher.SaltValue;
                     USV.Password = hashedPassword;
+                    USV.LOOKUPRoleID = newUserID;
                     UM.AddUserAccount(USV);
                     FormsAuthentication.SetAuthCookie(USV.FirstName, false);
                     return RedirectToAction("Welcome", "Home");

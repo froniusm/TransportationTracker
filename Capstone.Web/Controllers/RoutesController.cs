@@ -59,6 +59,16 @@ namespace Capstone.Web.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult CreateRoute(RouteViewModel r)
         {
+            /* If there's already a route with the same name, flag that using TempData,
+            and kick them back to the menu again.  Route names must be unique.           
+            Note that the SQL Database doesn't contain a unique constraint for route names as of 8/3/17
+             */
+            WaypointDAL dal = new WaypointDAL();
+            if (dal.RouteNameTaken(r.Name))
+            {
+                TempData["RouteNameTaken"] = true;
+                return RedirectToAction("CreateRoute");
+            }
 
             // Add route name to session
             Route route = new Route();

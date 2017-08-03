@@ -9,8 +9,13 @@ namespace Capstone.Web.DAL
 {
     public interface IWaypointDAL
     {
-        List<Schedule> GetSchedules(int waypointID);
         UserRoutesView GetAllRoutes();
+        int GetRouteID(string routeName);
+        bool RouteNameTaken(string routeName);
+        void CreateNewRoute(Route r, List<Waypoint> waypoints);
+        List<Waypoint> GetWaypoints(int routeID);
+        int GetWaypointID(string waypointName);
         void CreateSchedules(List<WaypointSchedule> schedules);
+        List<Schedule> GetSchedules(int waypointID);
     }
 }

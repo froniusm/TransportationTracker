@@ -156,7 +156,7 @@ namespace Capstone.Web.Models.EntityManager
 
             using (TransportationDBEntities db = new TransportationDBEntities())
             {
-                routes = db.Routes.ToList();
+                routes = db.Routes.OrderBy(x => x.Name).ToList();
                 foreach (Route route in routes)
                 {
                     route.Waypoints = db.Waypoints.Where(i => i.RouteID.Equals(route.RouteID)).ToList();

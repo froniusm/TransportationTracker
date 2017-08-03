@@ -55,7 +55,7 @@ namespace Capstone.Web.Models.EntityManager
                 {
                     SYSUserRole SUR = new SYSUserRole();
                     SUR.LOOKUPRoleID = user.LOOKUPRoleID;
-                    SUR.SYSUserID = user.SYSUserID;
+                    SUR.SYSUserID = GetUserID(user.LoginName);
                     SUR.IsActive = true;
                     SUR.RowCreatedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID : 1;
                     SUR.RowModifiedSYSUserID = user.SYSUserID > 0 ? user.SYSUserID : 1;
